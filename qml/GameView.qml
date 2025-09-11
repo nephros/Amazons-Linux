@@ -14,8 +14,8 @@
 
 import QtQuick 2.4
 import QtQuick.Layouts 1.1
-import Ubuntu.Components 1.3
-import Ubuntu.Components.Popups 1.3
+import Lomiri.Components 1.3
+import Lomiri.Components.Popups 1.3
 import QtMultimedia 5.8
 
 import Amazons 1.0
@@ -135,7 +135,7 @@ Page {
 				left: parent.left
 			}
 
-			property real squareSize: units.gu(5)
+			property real squareSize: units.gu(4)
 
 			onPaint: {
 				var ctx = gameCanvas.getContext('2d')
