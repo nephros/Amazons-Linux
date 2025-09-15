@@ -9,11 +9,16 @@ set(
 
 set(CMAKE_AUTOMOC ON)
 
-include_directories(${CMAKE_SOURCE_DIR}/plugins/Amazons/lib)
-link_directories(${CMAKE_SOURCE_DIR}/plugins/Amazons/lib)
+include_directories(${CMAKE_SOURCE_DIR}/plugins/Amazons/lib/Amazons)
+link_directories(${CMAKE_SOURCE_DIR}/plugins/Amazons/lib/Amazons)
+
+add_custom_target(BuildBackend ALL
+    COMMAND make -C ${CMAKE_SOURCE_DIR}/plugins/Amazons/lib/Amazons CC=${CMAKE_C_COMPILER} clean lib
+)
 
 add_library(${PLUGIN} MODULE ${SRC})
-target_link_libraries(${PLUGIN} ${CMAKE_SOURCE_DIR}/plugins/Amazons/lib/libamazons.a)
+add_dependencies(${PLUGIN} BuildBackend)
+target_link_libraries(${PLUGIN} ${CMAKE_SOURCE_DIR}/plugins/Amazons/lib/Amazons/libamazons.a)
 set_target_properties(${PLUGIN} PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${PLUGIN})
 qt5_use_modules(${PLUGIN} Qml Quick DBus)
 
