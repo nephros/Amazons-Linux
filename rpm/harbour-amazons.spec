@@ -33,6 +33,7 @@ BuildRequires:  intltool
 BuildRequires:  sailfish-svg2png
 BuildRequires:  qml-rpm-macros
 BuildRequires:  desktop-file-utils
+
 %if 0%{?harbour_validation:1}
 BuildRequires: sdk-harbour-rpmvalidator
 %endif
@@ -70,6 +71,8 @@ Links:
 %prep
 %autosetup -p1 -n %{name}-%{version}
 sed -i '/^set(QT_IMPORTS_DIR.*/d' plugins/Amazons/CMakeLists.txt ||:
+sed -i 's@FLAGS=-std=c11 -D_XOPEN_SOURCE@FLAGS=-std=c11 -fPIC -D_XOPEN_SOURCE@' plugins/Amazons/backend/Makefile
+
 sed -i '/^set(QT_IMPORTS_DIR.*/d' CMakeLists.txt ||:
 sed -i '/^set(CMAKE_INSTALL_PREFIX.*/d' CMakeLists.txt ||:
 sed -i '/^set(DATA_DIR.*/d' CMakeLists.txt ||:
