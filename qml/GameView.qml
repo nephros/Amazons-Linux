@@ -21,9 +21,6 @@ import Amazons 1.0
 
 Page {
 	id: gameViewPage
-	anchors.fill: parent
-
-	property SetupView setup
 
 	property bool isSettingUp: false
 	property bool isGameOver: false
@@ -34,7 +31,9 @@ Page {
 	property int p2count: 0
 	property int clickedSquare: 0
 
-    property int margin: Theme.paddingSmall
+    QtObject{ id: stateLabel
+        property string text: i18n.tr("Bows to move")
+    }
 
 	function undoPlacement() {
 		if (isSettingUp) {
@@ -59,26 +58,22 @@ Page {
 	}
 
 	function restartGame(custom) {
-		//PopupUtils.open(confirmRestartNotif, gameViewPage, { "custom" : custom })
-		var dlg = pageStack.push(confirmDialog , { "custom": custom } )
-		dlg.accepted.connect(function() {
-				if (dlg.custom) {
-					var wp = setupView.getAmazons(1)
-					var bp = setupView.getAmazons(2)
-					var bh = setupView.getBoardSize(1)
-					var bw = setupView.getBoardSize(2)
-					gameViewPage.isSettingUp = true
-					gameViewPage.pickedPositions = 0
-					gameViewPage.initialPositions = []
-					gameViewPage.clickedSquare = 0
-					Amazons.setGameProperties(wp, bp, bw, bh)
-					gameViewPage.p1count = wp
-					gameViewPage.p2count = bp
-					stateLabel.text = i18n.tr("Tap initial starting positions for first player")
-				} else {
-					newStandardGame()
-				}
-			})
+		if (custom) {
+			var wp = setupView.getAmazons(1)
+			var bp = setupView.getAmazons(2)
+			var bh = setupView.getBoardSize(1)
+			var bw = setupView.getBoardSize(2)
+			gameViewPage.isSettingUp = true
+			gameViewPage.pickedPositions = 0
+			gameViewPage.initialPositions = []
+			gameViewPage.clickedSquare = 0
+			Amazons.setGameProperties(wp, bp, bw, bh)
+			gameViewPage.p1count = wp
+			gameViewPage.p2count = bp
+			stateLabel.text = i18n.tr("Tap initial starting positions for first player")
+		} else {
+			newStandardGame()
+		}
 	}
 
 	function newStandardGame() {
@@ -101,33 +96,11 @@ Page {
 		onBoardSizeChanged: {
 			gameCanvas.width = Amazons.getBoardWidth() * gameCanvas.squareSize
 			gameCanvas.height = Amazons.getBoardHeight() * gameCanvas.squareSize
-			flick.contentWidth = gameCanvas.width
-			flick.contentHeight = gameCanvas.height
+//			flick.contentWidth = gameCanvas.width
+//			flick.contentHeight = gameCanvas.height
 			gameCanvas.requestPaint()
 		}
 	}
-
-    Component {
-        id: confirmDialog
-        Dialog {
-            property var custom
-            SilicaFlickable {
-                anchors.fill: parent
-                DialogHeader {
-                    acceptText: i18n.tr("Yes, restart")
-                    cancelText: i18n.tr("No, keep playing")
-                }
-                Label {
-                   anchors.centerIn: parent
-                   width: parent.width - Theme.itemSizeLarge
-                   font.pixelSize: Theme.fontSizeLarge
-                   horizontalAlignment: Qt.AlignHCenter
-                   text: i18n.tr("Are you sure you want to restart the game?")
-                   wrapMode: Text.WordWrap
-                }
-            }
-        }
-    }
 
     /*
 	Component {
@@ -158,18 +131,12 @@ Page {
 
 	SilicaFlickable {
 		id: flick
-		anchors {
-			top: parent.top
-			//top: header.bottom
-			topMargin: margin
-			left: parent.left
-			leftMargin: margin
-			right: parent.right
-			rightMargin: margin
-			bottom: stateLabel.top
-			bottomMargin: margin
-		}
+        anchors.fill: parent
 		clip: true
+        PageHeader { id: header; title: i18n.tr("Amazons")
+                     description: stateLabel.text
+        }
+
         PullDownMenu {
             MenuItem {
                 text: i18n.tr("About Amazons")
@@ -181,11 +148,11 @@ Page {
             }
             MenuItem {
                 text: i18n.tr("New Standard Game")
-                onClicked: gameViewPage.restartGame(false)
+                onClicked: Remorse.popupAction(gameViewPage, i18n.tr("Restarting game"), function() {gameViewPage.restartGame(false) }, 4000 )
             }
             MenuItem {
                 text: i18n.tr("New Custom Game")
-                onClicked: gameViewPage.restartGame(true)
+                onClicked: Remorse.popupAction(gameViewPage, i18n.tr("Restarting custom game"), function() {gameViewPage.restartGame(true) }, 4000 )
             }
             MenuItem {
                 text: i18n.tr("Undo Choice")
@@ -193,19 +160,13 @@ Page {
             }
         }
 
-        PageHeader { id: header }
-
-
 		Canvas {
 			id: gameCanvas
-			anchors {
-				//top: parent.top
-				//left: parent.left
-				//right: parent.right
-			    top: header.bottom
-			    //verticalCenter: header.verticalCenter
-			    //bottom: parent.bottom
-			}
+            anchors.top: header.bottom
+            anchors.topMargin: Theme.itemSizeLagth
+            anchors.horizontalCenter: parent.horizontalCenter
+            //width: parent.width - Theme.horizontalPageMargin
+            //height: width
 
 			property real squareSize: units.gu(4)
 
@@ -381,19 +342,20 @@ Page {
 		}
 	}
 
+    /*
 	Label {
 		id: stateLabel
 		anchors {
 			left: parent.left
-			leftMargin: margin
 			right: parent.right
-			rightMargin: margin
 			bottom: parent.bottom
-			bottomMargin: margin
+			margins: Theme.paddingMedium
 		}
 
 		text: i18n.tr("Bows to move")
+        color: Theme.highlightColor
 	}
+    */
 
 	Component.onCompleted: {
 		gameCanvas.loadImage("sprites/P1.png")

@@ -17,122 +17,85 @@ import Sailfish.Silica 1.0
 import "compat"
 
 Page {
-	id: setupPage
+    id: setupPage
 
-	property bool areSFXEnabled: true
+    property bool areSFXEnabled: true
 
     property int margin: Theme.paddingSmall
 
-	function parseWithDefault(text, def) {
-		var parsed = parseInt(text)
-		if (isNaN(parsed) || parsed <= 0) {
-			return def
-		}
-		return parsed
-	}
+    function parseWithDefault(text, def) {
+        var parsed = parseInt(text)
+        if (isNaN(parsed) || parsed <= 0) {
+            return def
+        }
+        return parsed
+    }
 
-	function getAmazons(player) {
-		return parseWithDefault(player === 1 ? p1amazons.text : p2amazons.text, 4)
-	}
+    function getAmazons(player) {
+        return parseWithDefault(player === 1 ? p1amazons.sliderValue : p2amazons.sliderValue, 4)
+    }
 
-	function getBoardSize(axis) {
-		return parseWithDefault(axis === 1 ? boardHeight.text : boardWidth.text, 10)
-	}
+    function getBoardSize(axis) {
+        return parseWithDefault(axis === 1 ? boardHeight.sliderValue : boardWidth.sliderValue, 10)
+    }
 
-	PageHeader { id: header; title: i18n.tr("Game Settings") }
 
-	Column {
-		anchors {
-			top: header.bottom
-			topMargin: margin
-			left: parent.left
-			leftMargin: margin
-			right: parent.right
-			rightMargin: margin
-			bottom: parent.bottom
-			bottomMargin: margin
-		}
-		spacing: margin
+    SilicaFlickable {
+        anchors.fill: parent
+        contentHeight: content.height
+        Column { id: content
+            width: parent.width
+            spacing: Theme.paddingLarge
 
-		Row {
-			width: parent.width
-			spacing: margin
+            PageHeader { id: header; title: i18n.tr("Game Settings") }
 
-			Label {
-				id: p1lbl
-				text: i18n.tr("Player 1 Amazons")
-				anchors.verticalCenter: p1amazons.verticalCenter
-			}
+            Slider { id: p1amazons
+                width: parent.width
+                label: i18n.tr("Player 1 Amazons")
+                minimumValue: 3
+                maximumValue: 7
+                value: 4
+                valueText: sliderValue
+                handleVisible: true
+            }
 
-			TextField {
-				id: p1amazons
-				placeholderText: "4"
-				width: parent.width - p1lbl.width - margin
-			}
-		}
+            Slider { id: p2amazons
+                width: parent.width
+                label: i18n.tr("Player 2 Amazons")
+                minimumValue: 3
+                maximumValue: 7
+                value: 4
+                valueText: sliderValue
+                handleVisible: true
+            }
 
-		Row {
-			width: parent.width
-			spacing: margin
+            Slider { id: bwlbl
+                width: parent.width
+                label: i18n.tr("Board width")
+                minimumValue: 7
+                maximumValue: 17
+                value: 10
+                valueText: sliderValue
+                handleVisible: true
+            }
 
-			Label {
-				id: p2lbl
-				text: i18n.tr("Player 2 Amazons")
-				anchors.verticalCenter: p2amazons.verticalCenter
-			}
+            Slider { id: bhlbl
+                width: parent.width
+                label: i18n.tr("Board height")
+                minimumValue: 7
+                maximumValue: 17
+                value: 10
+                valueText: sliderValue
+                handleVisible: true
+            }
 
-			TextField {
-				id: p2amazons
-				placeholderText: "4"
-				width: parent.width - p2lbl.width - margin
-			}
-		}
-
-		Row {
-			width: parent.width
-			spacing: margin
-
-			Label {
-				id: bwlbl
-				text: i18n.tr("Board width")
-				anchors.verticalCenter: boardWidth.verticalCenter
-			}
-
-			TextField {
-				id: boardWidth
-				placeholderText: "10"
-				width: parent.width - bwlbl.width - margin
-			}
-		}
-
-		Row {
-			width: parent.width
-			spacing: margin
-
-			Label {
-				id: bhlbl
-				text: i18n.tr("Board height")
-				anchors.verticalCenter: boardHeight.verticalCenter
-			}
-
-			TextField {
-				id: boardHeight
-				placeholderText: "10"
-				width: parent.width - bhlbl.width - margin
-			}
-		}
-
-		/*Row {
-			width: parent.width
-			spacing: margin
-
-			CheckBox {
-				id: enableSFX
-				text: i18n.tr("Enable sound effects")
-				checked: true
-
-				onClicked: areSFXEnabled = checked
-			}
-		}*/
-	}
+            TextSwitch {
+                id: enableSFX
+                width: parent.width
+                text: i18n.tr("Enable sound effects")
+                checked: true
+                onClicked: areSFXEnabled = checked
+            }
+        }
+    }
 }

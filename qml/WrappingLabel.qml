@@ -20,7 +20,9 @@ Label {
         left: parent.left
         right: parent.right
     }
-    linkColor: Theme.secondaryHighlightColor
+    linkColor: Qt.colorEqual(color, Theme.secondaryHighlightColor)
+            ? Theme.primaryColor : Theme.secondaryHighlightColor
+    font.pixelSize: Theme.fontSizeSmall
 	wrapMode: Text.WrapAtWordBoundaryOrAnywhere
 	onLinkActivated: Qt.openUrlExternally(link)
 }

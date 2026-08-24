@@ -116,8 +116,7 @@ install -d %{buildroot}%{_datadir}/icons/hicolor/${size}x${size}/apps/
 sailfish_svg2png -z 1.0 -f rgba -s 1 1 1 1 1 1 ${size} %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/ %{buildroot}%{_datadir}/icons/hicolor/${size}x${size}/apps/
 done
 
-# remove huge icon file:
-rm -rf %{buildroot}%{_datadir}/%{name}/assets
+mv %{buildroot}%{_datadir}/%{name}/assets/logo.png %{buildroot}%{_datadir}/%{name}/qml/cover-background.png
 
 desktop-file-install --delete-original       \
   --dir %{buildroot}%{_datadir}/applications             \

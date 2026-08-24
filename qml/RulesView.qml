@@ -22,7 +22,7 @@ Page {
 		title: i18n.tr("Gameplay rules")
     }
 
-	ScrollView {
+	SilicaFlickable {
 		id: scroll
 		anchors {
 			top: header.bottom

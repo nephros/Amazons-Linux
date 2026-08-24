@@ -19,14 +19,11 @@ import "compat"
 Page {
 	id: aboutPage
 
-	ScrollView {
+	SilicaFlickable {
 		id: scroll
 
         anchors.fill: parent
-        anchors.leftMargin: Theme.horizontalPageMargin
-        anchors.rightMargin: Theme.horizontalPageMargin
         contentHeight: content.height
-
 
 	    PageHeader { id: header; title: i18n.tr("Amazons") }
 
@@ -38,12 +35,18 @@ Page {
         }
 
 		Column { id: content
-            anchors.top: header.bottom
-			width: scroll.width
+            anchors {
+                top: header.bottom
+                left: parent.left
+                right: parent.right
+                leftMargin: Theme.horizontalPageMargin
+                rightMargin: Theme.horizontalPageMargin
+            }
 			spacing: Theme.paddingLarge
 
 			WrappingLabel {
 				text: "Game of the Amazons - " + i18n.tr("written by Arc676/Alessandro Vinciguerra. Project available under") + " GPLv3. Copyright 2019-20 Arc676/Alessandro Vinciguerra <alesvinciguerra@gmail.com>"
+                color: Theme.secondaryHighlightColor
 			}
 
 			WrappingLabel {
@@ -56,6 +59,7 @@ Page {
 
 			WrappingLabel {
 				text: i18n.tr("For the full license text, visit the <a href='https://github.com/Arc676/Amazons-Linux'>repository</a> or the <a href='http://www.gnu.org/licenses/'>GNU licenses page</a>")
+                color: Theme.secondaryHighlightColor
 			}
 
 			WrappingLabel {
@@ -64,10 +68,12 @@ Page {
 
 			WrappingLabel {
 				text: i18n.tr("All assets by Arc676/Alessandro Vinciguerra adapted from CC0 assets by %1").arg("<a href='https://opengameart.org/content/rpg-itemterraincharacter-sprites-ice-insignia'>rcorre</a>")
+                color: Theme.secondaryHighlightColor
 			}
 
 			WrappingLabel {
 				text: i18n.tr("ported to Sailfish OS by nephros")
+                color: Theme.secondaryHighlightColor
 			}
 
 
