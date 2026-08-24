@@ -73,9 +73,6 @@ sed -i '/^set(QT_IMPORTS_DIR.*/d' plugins/Amazons/CMakeLists.txt ||:
 sed -i '/^set(QT_IMPORTS_DIR.*/d' CMakeLists.txt ||:
 sed -i '/^set(CMAKE_INSTALL_PREFIX.*/d' CMakeLists.txt ||:
 sed -i '/^set(DATA_DIR.*/d' CMakeLists.txt ||:
-#sed -i '/^add_subdirectory(po)/d' CMakeLists.txt ||:
-sed -i '/manifest.json/d' CMakeLists.txt ||:
-sed -i '/apparmor/d' CMakeLists.txt ||:
 
 cp %{S:1} lomiri-compat/CMakeLists.txt
 sed -i 's/^add_subdirectory(po)$/add_subdirectory(lomiri-compat)/' CMakeLists.txt ||:
@@ -90,6 +87,8 @@ sed -i 's/^add_subdirectory(po)$/add_subdirectory(lomiri-compat)/' CMakeLists.tx
         %nil
 %cmake_build -j 1
 
+lrelease translations/*
+
 %install
 %cmake_install --strip
 
@@ -98,6 +97,9 @@ install -Dpm644 %{S:2} %{buildroot}%{_datadir}/%{name}/qml/%{name}.qml
 install -d %{buildroot}%{_datadir}/applications/
 mv %{buildroot}%{_datadir}/%{name}/amazons.desktop %{buildroot}%{_datadir}/applications/%{name}.desktop
 
+for qm in translations/*.qm; do
+install -Dpm644 $qm %{buildroot}%{_datadir}/%{name}/$qm
+done
 
 # Edit the main .desktop file for Sailjail
  desktop-file-edit  \
@@ -129,6 +131,8 @@ desktop-file-install --delete-original       \
    %{buildroot}%{_datadir}/applications/*.desktop
 
 
+rm %{buildroot}%{_prefix}/manifest.json
+rm %{buildroot}%{_datadir}/%{name}/*apparmor
 # do not package documentation:
 rm -rf %{buildroot}%{_docdir}
 rm -rf %{buildroot}%{_mandir}
@@ -143,15 +147,13 @@ echo '=========== DONE checking for Harbour compatability.'
 echo '=========== NOT checking for Harbour compatability.'
 %endif
 
-%
 %files
-#%%{_bindir}/*
 %{_datadir}/applications/*.desktop
 %{_datadir}/icons/*/*/apps/*
 %exclude %{_datadir}/icons/*/scalable/apps/*
 %dir %{_datadir}/%{name}
-#%%dir %{_datadir}/%{name}/translations
-#%%{_datadir}/%{name}/translations/*.qm
+%dir %{_datadir}/%{name}/translations
+%{_datadir}/%{name}/translations/*.qm
 %{_datadir}/%{name}/qml/
 %{_datadir}/%{name}/Amazons/
 
