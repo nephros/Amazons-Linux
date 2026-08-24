@@ -18,13 +18,12 @@ import "compat"
 
 Page {
 	id: aboutPage
-	PageHeader { id: header }
-
-    property int margin: Theme.paddingSmall
 
 	ScrollView {
 		id: scroll
+        /*
 		anchors {
+			top: header.bottom
 			top: header.bottom
 			topMargin: margin
 			left: parent.left
@@ -33,6 +32,13 @@ Page {
 			rightMargin: margin
 			bottom: parent.bottom
 		}
+        */
+        anchors.fill: parent
+        anchors.margins: Theme.paddingSmall
+        contentHeight: content.height
+
+
+	    PageHeader { id: header; title: i18n.tr("Amazons") }
 
         PullDownMenu {
             MenuItem {
@@ -45,9 +51,10 @@ Page {
             }
         }
 
-		Column {
+		Column { id: content
+            anchors.top: header.bottom
 			width: scroll.width
-			spacing: margin
+			spacing: Theme.paddingLarge
 
 			WrappingLabel {
 				text: "Game of the Amazons - " + i18n.tr("written by Arc676/Alessandro Vinciguerra. Project available under") + " GPLv3. Copyright 2019-20 Arc676/Alessandro Vinciguerra <alesvinciguerra@gmail.com>"
@@ -74,6 +81,12 @@ Page {
 			WrappingLabel {
 				text: i18n.tr("All assets by Arc676/Alessandro Vinciguerra adapted from CC0 assets by %1").arg("<a href='https://opengameart.org/content/rpg-itemterraincharacter-sprites-ice-insignia'>rcorre</a>")
 			}
+
+			WrappingLabel {
+				text: i18n.tr("ported to Sailfish OS by nephros")
+			}
+
+
 		}
 	}
 }

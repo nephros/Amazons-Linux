@@ -13,14 +13,16 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 import QtQuick 2.4
+import Sailfish.Silica 1.0
 
 Label {
-	anchors {
-		left: parent.left
-		leftMargin: margin
-		right: parent.right
-		rightMargin: margin
-	}
+    anchors {
+        left: parent.left
+        leftMargin: Theme.horizontalPageMargin
+        right: parent.right
+        rightMargin: Theme.horizontalPageMargin
+    }
+    linkColor: Theme.secondaryHighlightColor
 	wrapMode: Text.WrapAtWordBoundaryOrAnywhere
 	onLinkActivated: Qt.openUrlExternally(link)
 }

@@ -18,7 +18,6 @@ import "compat"
 
 Page {
 	id: setupPage
-	PageHeader { id: header }
 
 	property bool areSFXEnabled: true
 
@@ -39,6 +38,8 @@ Page {
 	function getBoardSize(axis) {
 		return parseWithDefault(axis === 1 ? boardHeight.text : boardWidth.text, 10)
 	}
+
+	PageHeader { id: header }
 
 	Column {
 		anchors {
