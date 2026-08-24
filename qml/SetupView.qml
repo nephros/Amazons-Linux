@@ -39,7 +39,7 @@ Page {
 		return parseWithDefault(axis === 1 ? boardHeight.text : boardWidth.text, 10)
 	}
 
-	PageHeader { id: header }
+	PageHeader { id: header; title: i18n.tr("Game Settings") }
 
 	Column {
 		anchors {

@@ -18,9 +18,7 @@ import Sailfish.Silica 1.0
 Label {
     anchors {
         left: parent.left
-        leftMargin: Theme.horizontalPageMargin
         right: parent.right
-        rightMargin: Theme.horizontalPageMargin
     }
     linkColor: Theme.secondaryHighlightColor
 	wrapMode: Text.WrapAtWordBoundaryOrAnywhere

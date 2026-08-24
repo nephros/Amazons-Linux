@@ -18,44 +18,50 @@ import "compat"
 
 Page {
 	id: rulesPage
-	PageHeader { id: header }
-
-    property int margin: Theme.paddingSmall
+	PageHeader { id: header
+		title: i18n.tr("Gameplay rules")
+    }
 
 	ScrollView {
 		id: scroll
 		anchors {
 			top: header.bottom
-			topMargin: margin
 			left: parent.left
-			leftMargin: margin
+			leftMargin: Theme.horizontalPageMargin
 			right: parent.right
-			rightMargin: margin
+			rightMargin: Theme.horizontalPageMargin
 			bottom: parent.bottom
 		}
+        contentHeight: content.height
 
-		Column {
+		Column { id: content
 			width: scroll.width
-			spacing: margin
-
-			WrappingLabel {
-				text: i18n.tr("Gameplay rules")
-			}
+			spacing: Theme.paddingLarge
 
 			WrappingLabel {
 				text: i18n.tr("Amazons is a game invented in 1988 by Walter Zamkauskas of Argentina. It's similar to go and chess. Two players each control a number of Amazons. These can move any number of squares in any direction like chess queens. After moving, they shoot an arrow which permanently occupies the tile on which it lands. The arrow can land on any square accessible by a chess-queen-like move from the Amazon's new location. Amazons and arrows cannot move across a square if it is occupied by an arrow or another Amazon. The first player unable to make a legal move loses. Equivalently, the last player able to make a legal move wins the game.")
+                font.pixelSize: Theme.fontSizeSmall
+                horizontalAlignment: Qt.AlignJustify
 			}
 
 			WrappingLabel {
 				text: i18n.tr("The Game of the Amazons can be played with any number of Amazons and on any board size or shape. You can configure the game parameters in the game settings. The standard configuration involves 4 Amazons for each player on a 10x10 grid. If the entirety of the board does not fit on screen, you can drag to view different areas of the board. The player represented by the bows always plays first. At the bottom of the screen, the current player is indicated. To make a move, tap an Amazon you control, a valid destination square, and a square to which to shoot. Tapping an invalid square at any point will not affect the app state.")
+                font.pixelSize: Theme.fontSizeSmall
+                horizontalAlignment: Qt.AlignJustify
 			}
 
+            /*
 			WrappingLabel {
 				text: i18n.tr("Tap the clockwise-facing reset button to start a new game using the standard configuration. This is also the configuration used when the app is launched. Tap the counterclockwise-facing reset button to start a new game with a custom starting configuration. The parameters are set in the game settings. During a game, tap the undo button to clear your square selections and start over. It is not currently possible to undo a completed move. While setting up a custom game, tap the undo button to undo the last selection.")
+                font.pixelSize: Theme.fontSizeSmall
+                horizontalAlignment: Qt.AlignJustify
 			}
+            */
 
 			WrappingLabel {
 				text: i18n.tr("For more details, please refer to the <a href='https://en.wikipedia.org/wiki/Game_of_the_Amazons'>Wikipedia page</a> or <a href='https://www.youtube.com/watch?v=kjSOSeRZVNg'>the Numberphile YouTube video</a>.")
+                font.pixelSize: Theme.fontSizeSmall
+                horizontalAlignment: Qt.AlignJustify
 			}
 		}
 	}

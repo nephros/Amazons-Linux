@@ -21,20 +21,10 @@ Page {
 
 	ScrollView {
 		id: scroll
-        /*
-		anchors {
-			top: header.bottom
-			top: header.bottom
-			topMargin: margin
-			left: parent.left
-			leftMargin: margin
-			right: parent.right
-			rightMargin: margin
-			bottom: parent.bottom
-		}
-        */
+
         anchors.fill: parent
-        anchors.margins: Theme.paddingSmall
+        anchors.leftMargin: Theme.horizontalPageMargin
+        anchors.rightMargin: Theme.horizontalPageMargin
         contentHeight: content.height
 
 
@@ -70,8 +60,6 @@ Page {
 
 			WrappingLabel {
 				text: i18n.tr("%1 assets").arg("<a href='https://creativecommons.org/licenses/by-nc-sa/4.0/'>CC BY-NC-SA 4.0</a>")
-				font.pixelSize: Theme.fontSizeLarge
-				//textSize: Label.Large
 			}
 
 			WrappingLabel {
