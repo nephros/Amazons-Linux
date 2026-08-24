@@ -1,6 +1,6 @@
 [submodule "plugins/Amazons/lib/Amazons"]
 	path = plugins/Amazons/backend
-	url = git@github.com:Arc676/Amazons.git
+	url = https://github.com/Arc676/Amazons.git
 [submodule "lomiri-compat"]
 	path = lomiri-compat
 	url = https://codeberg.org/nephros/lomiri-sfos-qml-compat
