@@ -137,6 +137,8 @@ Page {
 	SilicaFlickable {
 		id: flick
         anchors.fill: parent
+		contentHeight: gameCanvas.height
+		contentWidth: gameCanvas.width
 		clip: true
         PageHeader { id: header; title: i18n.tr("Amazons")
                      description: stateLabel.text
