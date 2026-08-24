@@ -2,3 +2,5 @@ build
 *.ignore
 *.a
 *.click
+qml/compat
+qml/harbour-amazons.qml
