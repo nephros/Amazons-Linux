@@ -89,6 +89,11 @@ Page {
 		stateLabel.text = i18n.tr("Bows to move")
 	}
 
+	onStatusChanged: if(status === PageStatus.Active) gameCanvas.requestPaint()
+	Connections {
+		target: app
+        onApplicationActiveChanged: if (applicationActive) gameCanvas.requestPaint()
+    }
 	Connections {
 		target: Amazons
 
