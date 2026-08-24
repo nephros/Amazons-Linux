@@ -5,7 +5,9 @@ Name:       harbour-amazons
 %bcond_with harbour
 %define orgname arc676.amazons
 %define appname GameOfTheAmazons
-#%%undefine __cmake_in_source_build
+%define keepstatic 1
+
+%undefine __cmake_in_source_build
 
 Summary:    Game of the Amazons
 Version:    1.3.3
@@ -61,18 +63,27 @@ Links:
 
 %prep
 %autosetup -p1 -n %{name}-%{version}
+#sed -i 's@${CMAKE_SOURCE_DIR}/plugins/Amazons/backend/libamazons.a@amazons@' plugins/Amazons/CMakeLists.txt ||:
+sed -i '/^set(QT_IMPORTS_DIR.*/d' plugins/Amazons/CMakeLists.txt ||:
+sed -i '/^set(QT_IMPORTS_DIR.*/d' CMakeLists.txt ||:
+sed -i '/^set(CMAKE_INSTALL_PREFIX.*/d' CMakeLists.txt ||:
+sed -i '/^set(DATA_DIR.*/d' CMakeLists.txt ||:
+sed -i '/^add_subdirectory(po)/d' CMakeLists.txt ||:
 
 %build
-%cmake -DQT_IMPORTS_DIR=%{_datadir}%{name}/lib/
-%cmake_build
-
-%make_build
+%cmake -Wno-dev \
+       -DCMAKE_INSTALL_PREFIX=%{_prefix} \
+       -DQT_IMPORTS_DIR=%{_datadir}/%{name}/lib/ \
+       -DDATA_DIR=%{_datadir}/%{name} \
+        %nil
+%cmake_build -j 1
 
 %install
 %cmake_install
 
-install -Dpm644 amazons.desktop %{buildroot}%{_datadir}/applications/%{name}.desktop
-ln -s Main.qml %{buildroot}%{_datadir}/qml/%{name}.qml
+install -Dpm644 %{__cmake_builddir}/amazons.desktop %{buildroot}%{_datadir}/applications/%{name}.desktop
+install -d %{buildroot}%{_datadir}/%{name}/qml/
+ln -s Main.qml %{buildroot}%{_datadir}/%{name}/qml/%{name}.qml
 
 
 # Edit the main .desktop file for Sailjail
@@ -92,7 +103,7 @@ printf '\n\n[X-Sailjail]\nOrganizationName=%{orgname}\nApplicationName=%{appname
      >> %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 # generate some icons
-instal -Dpm644 icons/%{name}.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
+install -Dpm644 icons/%{name}.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 for size in 86 108 128 172 256 512; do
 install -d %{buildroot}%{_datadir}/icons/hicolor/${size}x${size}/apps/
 sailfish_svg2png -z 1.0 -f rgba -s 1 1 1 1 1 1 ${size} %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/ %{buildroot}%{_datadir}/icons/hicolor/${size}x${size}/apps/
@@ -108,12 +119,18 @@ rm -rf %{buildroot}%{_docdir}
 rm -rf %{buildroot}%{_mandir}
 
 %files
-%{_bindir}/*
+#%%{_bindir}/*
 %{_datadir}/applications/*.desktop
 %{_datadir}/icons/*/*/apps/*
+%exclude %{_datadir}/icons/*/scalable/apps/*
 %dir %{_datadir}/%{name}
-%dir %{_datadir}/%{name}/translations
-%{_datadir}/%{name}/translations/*.qm
+#%%dir %{_datadir}/%{name}/translations
+#%%{_datadir}/%{name}/translations/*.qm
 %{_datadir}/%{name}/qml/
+%{_datadir}/%{name}/lib/
+%exclude %{_datadir}/%{name}/amazons.apparmor
+%exclude %{_datadir}/%{name}/amazons.desktop
+%exclude %{_prefix}/manifest.json
+%exclude %{_datadir}/%{name}/assets
 
 
