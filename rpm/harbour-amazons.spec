@@ -33,6 +33,9 @@ BuildRequires:  intltool
 BuildRequires:  sailfish-svg2png
 BuildRequires:  qml-rpm-macros
 BuildRequires:  desktop-file-utils
+%if 0%{?harbour_validation:1}
+BuildRequires: sdk-harbour-rpmvalidator
+%endif
 
 
 %description
@@ -130,6 +133,17 @@ desktop-file-install --delete-original       \
 rm -rf %{buildroot}%{_docdir}
 rm -rf %{buildroot}%{_mandir}
 
+%clean
+%if 0%{?harbour_validation:1}
+echo '=========== Checking for Harbour compatability.'
+mkdir -p ~/rpmbuild/OTHER || :
+find ~/rpmbuild/RPMS -type f -name %{name}-%{version}*.rpm -exec /usr/libexec/sdk-harbour-rpmvalidator/rpmvalidation.sh -d 0 --no-color {}  \; | tee ~/rpmbuild/OTHER/harbour-validator.log ||:
+echo '=========== DONE checking for Harbour compatability.'
+%else
+echo '=========== NOT checking for Harbour compatability.'
+%endif
+
+%
 %files
 #%%{_bindir}/*
 %{_datadir}/applications/*.desktop
