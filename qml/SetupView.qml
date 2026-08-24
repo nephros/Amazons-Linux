@@ -13,6 +13,8 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 import QtQuick 2.4
+import Sailfish.Silica 1.0
+import "compat"
 
 Page {
 	id: setupPage
@@ -35,6 +37,9 @@ Page {
 	function getBoardSize(axis) {
 		return parseWithDefault(axis === 1 ? boardHeight.text : boardWidth.text, 10)
 	}
+
+    // FIXME: probably will need a Flickable. Make Page a Dialog??
+    DefaultPulley{}
 
 	Column {
 		anchors {

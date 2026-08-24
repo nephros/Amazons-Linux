@@ -13,6 +13,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 import QtQuick 2.4
+import "compat"
 
 Page {
 	id: aboutPage
@@ -29,6 +30,8 @@ Page {
 			rightMargin: margin
 			bottom: parent.bottom
 		}
+
+        DefaultPulley{}
 
 		Column {
 			width: scroll.width
