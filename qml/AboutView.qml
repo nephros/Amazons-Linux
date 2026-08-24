@@ -20,6 +20,8 @@ Page {
 	id: aboutPage
 	header: DefaultHeader {}
 
+    property int margin: Theme.paddingSmall
+
 	ScrollView {
 		id: scroll
 		anchors {

@@ -13,11 +13,14 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 import QtQuick 2.4
+import Sailfish.Silica 1.0
 import "compat"
 
 Page {
 	id: rulesPage
 	header: DefaultHeader {}
+
+    property int margin: Theme.paddingSmall
 
 	ScrollView {
 		id: scroll

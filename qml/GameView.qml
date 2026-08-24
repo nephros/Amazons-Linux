@@ -15,7 +15,7 @@
 import QtQuick 2.4
 import Sailfish.Silica 1.0
 import QtMultimedia 5.6
-import "compat"
+//import "compat"
 
 import Amazons 1.0
 
@@ -34,6 +34,8 @@ Page {
 	property int p2count: 0
 	property int clickedSquare: 0
 
+    property int margin: Theme.paddingSmall
+
 	function undoPlacement() {
 		if (isSettingUp) {
 			if (pickedPositions > 0) {
@@ -50,8 +52,6 @@ Page {
 		gameCanvas.requestPaint()
 	}
 
-	header: DefaultHeader {}
-
 	function playSound(sfx) {
 		if (setup.areSFXEnabled) {
 			sfx.play()
@@ -59,7 +59,26 @@ Page {
 	}
 
 	function restartGame(custom) {
-		PopupUtils.open(confirmRestartNotif, gameViewPage, { "custom" : custom })
+		//PopupUtils.open(confirmRestartNotif, gameViewPage, { "custom" : custom })
+		var dlg = pageStack.push(confirmDialog , { "custom": custom } )
+		dlg.accepted.connect(function() {
+				if (dlg.custom) {
+					var wp = setup.getAmazons(1)
+					var bp = setup.getAmazons(2)
+					var bh = setup.getBoardSize(1)
+					var bw = setup.getBoardSize(2)
+					gameViewPage.isSettingUp = true
+					gameViewPage.pickedPositions = 0
+					gameViewPage.initialPositions = []
+					gameViewPage.clickedSquare = 0
+					Amazons.setGameProperties(wp, bp, bw, bh)
+					gameViewPage.p1count = wp
+					gameViewPage.p2count = bp
+					stateLabel.text = i18n.tr("Tap initial starting positions for first player")
+				} else {
+					newStandardGame()
+				}
+			})
 	}
 
 	function newStandardGame() {
@@ -88,6 +107,29 @@ Page {
 		}
 	}
 
+    Component {
+        id: confirmDialog
+        Dialog {
+            property var custom
+            SilicaFlickable {
+                anchors.fill: parent
+                DialogHeader {
+                    acceptText: i18n.tr("Yes, restart")
+                    cancelText: i18n.tr("No, keep playing")
+                }
+                Label {
+                   anchors.centerIn: parent
+                   width: parent.width - Theme.itemSizeLarge
+                   font.pixelSize: Theme.fontSizeLarge
+                   horizontalAlignment: Qt.AlignHCenter
+                   text: i18n.tr("Are you sure you want to restart the game?")
+                   wrapMode: Text.WordWrap
+                }
+            }
+        }
+    }
+
+    /*
 	Component {
 		id: confirmRestartNotif
 
@@ -112,11 +154,13 @@ Page {
 			}
 		}
 	}
+    */
 
-	Flickable {
+	SilicaFlickable {
 		id: flick
 		anchors {
-			top: header.bottom
+			top: parent.top
+			//top: header.bottom
 			topMargin: margin
 			left: parent.left
 			leftMargin: margin
@@ -127,13 +171,19 @@ Page {
 		}
 		clip: true
 
+        DefaultHeader { id: header }
+
         DefaultPulley{}
 
 		Canvas {
 			id: gameCanvas
 			anchors {
-				top: parent.top
-				left: parent.left
+				//top: parent.top
+				//left: parent.left
+				//right: parent.right
+			    top: header.bottom
+			    //verticalCenter: header.verticalCenter
+			    //bottom: parent.bottom
 			}
 
 			property real squareSize: units.gu(4)

@@ -22,6 +22,8 @@ Page {
 	
 	property bool areSFXEnabled: true
 
+    property int margin: Theme.paddingSmall
+
 	function parseWithDefault(text, def) {
 		var parsed = parseInt(text)
 		if (isNaN(parsed) || parsed <= 0) {
@@ -39,7 +41,7 @@ Page {
 	}
 
     // FIXME: probably will need a Flickable. Make Page a Dialog??
-    DefaultPulley{}
+    //DefaultPulley{}
 
 	Column {
 		anchors {
