@@ -3,7 +3,7 @@
 Name:       harbour-amazons
 
 %bcond_with harbour
-%define orgname arc676.amazons
+%define orgname arc676
 %define appname GameOfTheAmazons
 %define keepstatic 1
 
@@ -14,7 +14,8 @@ Group:      Applications
 License:    GPLv3 and CC-BY-NC-SA-4.0
 URL:        https://github.com/Arc676/Amazons-Linux
 Source0:    %{name}-%{version}.tar.bz2
-Source1:    rpm/lomiri-compat-CMakeLists.txt
+Source1:    lomiri-compat-CMakeLists.txt
+Source2:    %{name}.qml
 
 # we need this if we rely on sailfishapp features in the .pro file (like installing qml)
 BuildRequires:  pkgconfig(sailfishapp)
@@ -78,7 +79,7 @@ sed -i 's/^add_subdirectory(po)$/add_subdirectory(lomiri-compat)/' CMakeLists.tx
        -DVERSION="%{version}" \
        -DRELEASE="%{release}" \
        -DCMAKE_INSTALL_PREFIX=%{_prefix} \
-       -DQT_IMPORTS_DIR=%{_datadir}/%{name}/lib/ \
+       -DQT_IMPORTS_DIR=%{_datadir}/%{name}/qml/ \
        -DDATA_DIR=%{_datadir}/%{name} \
         %nil
 %cmake_build -j 1
@@ -86,10 +87,10 @@ sed -i 's/^add_subdirectory(po)$/add_subdirectory(lomiri-compat)/' CMakeLists.tx
 %install
 %cmake_install
 
+rm -f %{buildroot}%{_datadir}/%{name}/qml/%{name}.qml
+install -Dpm644 %{S:2} %{buildroot}%{_datadir}/%{name}/qml/%{name}.qml
 install -d %{buildroot}%{_datadir}/applications/
-install -d %{buildroot}%{_datadir}/%{name}/qml/
 mv %{buildroot}%{_datadir}/%{name}/amazons.desktop %{buildroot}%{_datadir}/applications/%{name}.desktop
-ln -s Main.qml %{buildroot}%{_datadir}/%{name}/qml/%{name}.qml
 
 
 # Edit the main .desktop file for Sailjail
@@ -136,5 +137,4 @@ rm -rf %{buildroot}%{_mandir}
 #%%dir %{_datadir}/%{name}/translations
 #%%{_datadir}/%{name}/translations/*.qm
 %{_datadir}/%{name}/qml/
-%{_datadir}/%{name}/lib/
 

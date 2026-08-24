@@ -13,6 +13,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 import QtQuick 2.4
+import Sailfish.Silica 1.0
 import "compat"
 
 Page {
@@ -55,7 +56,8 @@ Page {
 
 			WrappingLabel {
 				text: i18n.tr("%1 assets").arg("<a href='https://creativecommons.org/licenses/by-nc-sa/4.0/'>CC BY-NC-SA 4.0</a>")
-				textSize: Label.Large
+				font.pixelSize: Theme.fontSizeLarge
+				//textSize: Label.Large
 			}
 
 			WrappingLabel {

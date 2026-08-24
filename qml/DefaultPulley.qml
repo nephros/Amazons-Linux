@@ -16,41 +16,40 @@ import QtQuick 2.4
 import Sailfish.Silica 1.0
 
 PullDownMenu {
-		MenuItem {
-			//iconName: "undo"
-			visible: pageStack.depth === 1
-			text: i18n.tr("Undo Choice")
-			onClicked: gameViewPage.undoPlacement()
-		},
-		MenuItem {
-			//iconName: "reload"
-			visible: pageStack.depth === 1
-			text: i18n.tr("New Standard Game")
-			onClicked: gameViewPage.restartGame(false)
-		},
-		MenuItem {
-			//iconName: "settings"
-			visible: pageStack.depth === 1
-			text: i18n.tr("Game Settings")
-			onClicked: pageStack.push(setupView)
-		},
-		MenuItem {
-			//iconName: "reset"
-			visible: pageStack.depth === 1
-			text: i18n.tr("New Custom Game")
-			onClicked: gameViewPage.restartGame(true)
-		},
-		MenuItem {
-			//iconName: "info"
-			visible: pageStack.depth === 1
-			text: i18n.tr("About Amazons")
-			onClicked: pageStack.push(aboutView)
-		},
-		MenuItem {
-			//iconName: "help"
-			visible: pageStack.depth === 1
-			text: i18n.tr("Gameplay Rules")
-			onClicked: pageStack.push(rulesView)
-		}
-	]
+	MenuItem {
+		//iconName: "undo"
+		visible: pageStack.depth === 1
+		text: i18n.tr("Undo Choice")
+		onClicked: gameViewPage.undoPlacement()
+	}
+	MenuItem {
+		//iconName: "reload"
+		visible: pageStack.depth === 1
+		text: i18n.tr("New Standard Game")
+		onClicked: gameViewPage.restartGame(false)
+	}
+	MenuItem {
+		//iconName: "settings"
+		visible: pageStack.depth === 1
+		text: i18n.tr("Game Settings")
+		onClicked: pageStack.push(setupView)
+	}
+	MenuItem {
+		//iconName: "reset"
+		visible: pageStack.depth === 1
+		text: i18n.tr("New Custom Game")
+		onClicked: gameViewPage.restartGame(true)
+	}
+	MenuItem {
+		//iconName: "info"
+		visible: pageStack.depth === 1
+		text: i18n.tr("About Amazons")
+		onClicked: pageStack.push(aboutView)
+	}
+	MenuItem {
+		//iconName: "help"
+		visible: pageStack.depth === 1
+		text: i18n.tr("Gameplay Rules")
+		onClicked: pageStack.push(rulesView)
+	}
 }

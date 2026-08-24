@@ -13,6 +13,8 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import QtQuick 2.4
+import Sailfish.Silica 1.0
+import "compat"
 
 Dialog {
 	id: dialog
@@ -21,7 +23,7 @@ Dialog {
 	signal restart()
 
 	property var custom
-	text: i18n.tr("Are you sure you want to restart the game?")
+    DialogHeader { title: i18n.tr("Are you sure you want to restart the game?") }
 
 	Button {
 		id: confirm
