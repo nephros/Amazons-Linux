@@ -3,22 +3,24 @@
 Name:       harbour-amazons
 
 %bcond_with harbour
-# %%define orgname org.example.sailfish
-# %%define appname AppTemplate
-# %%define pkgname %%{name}
-# %%define servicebase %%{orgname}.%%{appname}
-# %%define desktopsrc %%SOURCE1
+%define orgname arc676.amazons
+%define appname GameOfTheAmazons
+#%%undefine __cmake_in_source_build
 
 Summary:    Game of the Amazons
 Version:    1.3.3
 Release:    0
 Group:      Applications
-License:    GPLv3
+License:    GPLv3 and CC-BY-NC-SA-4.0
 URL:        https://github.com/Arc676/Amazons-Linux
 Source0:    %{name}-%{version}.tar.bz2
 
 # we need this if we rely on sailfishapp features in the .pro file (like installing qml)
 BuildRequires:  pkgconfig(sailfishapp)
+BuildRequires:  pkgconfig(Qt5Core)
+BuildRequires:  pkgconfig(Qt5Qml)
+BuildRequires:  pkgconfig(Qt5Quick)
+BuildRequires:  pkgconfig(Qt5DBus)
 
 BuildRequires:  qt5-qttools-linguist
 BuildRequires:  cmake
@@ -42,7 +44,7 @@ Custom:
   Repo: %{url}
   PackagingRepo: https://github.com/nephros/Amazons-Linux.git
 # GitHub:
-PackageIcon: %{url}/master/icons/%{name}.svg
+PackageIcon: %{url}/raw/master/icons/%{name}.svg
 # Codeberg:
 PackageIcon: https://github.com/Arc676/Amazons-Linux/raw/master/assets/logo.png
 Screenshots:
@@ -61,7 +63,7 @@ Links:
 %autosetup -p1 -n %{name}-%{version}
 
 %build
-%cmake 
+%cmake -DQT_IMPORTS_DIR=%{_datadir}%{name}/lib/
 %cmake_build
 
 %make_build
@@ -69,11 +71,32 @@ Links:
 %install
 %cmake_install
 
+install -Dpm644 amazons.desktop %{buildroot}%{_datadir}/applications/%{name}.desktop
+ln -s Main.qml %{buildroot}%{_datadir}/qml/%{name}.qml
+
+
+# Edit the main .desktop file for Sailjail
+ desktop-file-edit  \
+ --set-key=Exec \
+ --set-value="sailfish-qml %{name}" \
+ --set-name="Game Of The Amazons" \
+ --set-icon=%{name} \
+ --set-key=X-Nemo-Application-Type \
+ --set-value=silica-qt5 \
+ --set-key=X-Nemo-Single-Instance \
+ --set-value=yes \
+ --remove-key=X-Lomiri-Touch \
+ %{buildroot}%{_datadir}/applications/%{name}.desktop
+
+printf '\n\n[X-Sailjail]\nOrganizationName=%{orgname}\nApplicationName=%{appname}\nPermissions=Audio\n' \
+     >> %{buildroot}%{_datadir}/applications/%{name}.desktop
+
 # generate some icons
-#for size in 86 108 128 172 256 512 1024; do
-#install -d %%{buildroot}%%{_datadir}/icons/hicolor/${size}x${size}/apps/
-#sailfish_svg2png -z 1.0 -f rgba -s 1 1 1 1 1 1 ${size} %%{buildroot}%%{_datadir}/icons/hicolor/scalable/apps/ %%{buildroot}%%{_datadir}/icons/hicolor/${size}x${size}/apps/
-#done
+instal -Dpm644 icons/%{name}.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
+for size in 86 108 128 172 256 512; do
+install -d %{buildroot}%{_datadir}/icons/hicolor/${size}x${size}/apps/
+sailfish_svg2png -z 1.0 -f rgba -s 1 1 1 1 1 1 ${size} %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/ %{buildroot}%{_datadir}/icons/hicolor/${size}x${size}/apps/
+done
 
 desktop-file-install --delete-original       \
   --dir %{buildroot}%{_datadir}/applications             \
