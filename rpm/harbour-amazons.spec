@@ -67,12 +67,16 @@ sed -i '/^set(QT_IMPORTS_DIR.*/d' CMakeLists.txt ||:
 sed -i '/^set(CMAKE_INSTALL_PREFIX.*/d' CMakeLists.txt ||:
 sed -i '/^set(DATA_DIR.*/d' CMakeLists.txt ||:
 #sed -i '/^add_subdirectory(po)/d' CMakeLists.txt ||:
+sed -i '/manifest.json/d' CMakeLists.txt ||:
+sed -i '/apparmor/d' CMakeLists.txt ||:
 
 cp %{S:1} lomiri-compat/CMakeLists.txt
 sed -i 's/^add_subdirectory(po)$/add_subdirectory(lomiri-compat)/' CMakeLists.txt ||:
 
 %build
 %cmake -Wno-dev \
+       -DVERSION="%{version}" \
+       -DRELEASE="%{release}" \
        -DCMAKE_INSTALL_PREFIX=%{_prefix} \
        -DQT_IMPORTS_DIR=%{_datadir}/%{name}/lib/ \
        -DDATA_DIR=%{_datadir}/%{name} \
@@ -82,8 +86,9 @@ sed -i 's/^add_subdirectory(po)$/add_subdirectory(lomiri-compat)/' CMakeLists.tx
 %install
 %cmake_install
 
-install -Dpm644 %{__cmake_builddir}/amazons.desktop %{buildroot}%{_datadir}/applications/%{name}.desktop
+install -d %{buildroot}%{_datadir}/applications/
 install -d %{buildroot}%{_datadir}/%{name}/qml/
+mv %{buildroot}%{_datadir}/%{name}/amazons.desktop %{buildroot}%{_datadir}/applications/%{name}.desktop
 ln -s Main.qml %{buildroot}%{_datadir}/%{name}/qml/%{name}.qml
 
 
@@ -110,6 +115,9 @@ install -d %{buildroot}%{_datadir}/icons/hicolor/${size}x${size}/apps/
 sailfish_svg2png -z 1.0 -f rgba -s 1 1 1 1 1 1 ${size} %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/ %{buildroot}%{_datadir}/icons/hicolor/${size}x${size}/apps/
 done
 
+# remove huge icon file:
+rm -rf %{buildroot}%{_datadir}/%{name}/assets
+
 desktop-file-install --delete-original       \
   --dir %{buildroot}%{_datadir}/applications             \
    %{buildroot}%{_datadir}/applications/*.desktop
@@ -129,9 +137,4 @@ rm -rf %{buildroot}%{_mandir}
 #%%{_datadir}/%{name}/translations/*.qm
 %{_datadir}/%{name}/qml/
 %{_datadir}/%{name}/lib/
-%exclude %{_datadir}/%{name}/amazons.apparmor
-%exclude %{_datadir}/%{name}/amazons.desktop
-%exclude %{_prefix}/manifest.json
-%exclude %{_datadir}/%{name}/assets
-
 
