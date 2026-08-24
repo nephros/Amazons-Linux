@@ -175,14 +175,10 @@ Page {
                 text: i18n.tr("About Amazons")
                 onClicked: pageStack.push(aboutView)
             }
-//            MenuItem {
-//                text: i18n.tr("Gameplay Rules")
-//                onClicked: pageStack.push(rulesView)
-//            }
-//            MenuItem {
-//                text: i18n.tr("Game Settings")
-//                onClicked: pageStack.push(setupView)
-//            }
+            MenuItem {
+                text: i18n.tr("Game Settings")
+                onClicked: pageStack.push(setupView)
+            }
             MenuItem {
                 text: i18n.tr("New Standard Game")
                 onClicked: gameViewPage.restartGame(false)
