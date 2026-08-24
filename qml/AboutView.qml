@@ -34,7 +34,16 @@ Page {
 			bottom: parent.bottom
 		}
 
-        DefaultPulley{}
+        PullDownMenu {
+            MenuItem {
+                text: i18n.tr("Gameplay Rules")
+                onClicked: pageStack.push(rulesView)
+            }
+            MenuItem {
+                text: i18n.tr("Game Settings")
+                onClicked: pageStack.push(setupView)
+            }
+        }
 
 		Column {
 			width: scroll.width

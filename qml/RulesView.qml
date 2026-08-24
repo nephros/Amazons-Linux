@@ -34,8 +34,6 @@ Page {
 			bottom: parent.bottom
 		}
 
-        DefaultPulley{}
-
 		Column {
 			width: scroll.width
 			spacing: margin

@@ -40,9 +40,6 @@ Page {
 		return parseWithDefault(axis === 1 ? boardHeight.text : boardWidth.text, 10)
 	}
 
-    // FIXME: probably will need a Flickable. Make Page a Dialog??
-    //DefaultPulley{}
-
 	Column {
 		anchors {
 			top: header.bottom
