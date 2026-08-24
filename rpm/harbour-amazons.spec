@@ -28,6 +28,7 @@ BuildRequires:  pkgconfig(Qt5DBus)
 
 BuildRequires:  qt5-qttools-linguist
 BuildRequires:  cmake
+BuildRequires:  intltool
 
 BuildRequires:  sailfish-svg2png
 BuildRequires:  qml-rpm-macros
