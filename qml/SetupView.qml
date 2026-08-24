@@ -52,6 +52,7 @@ Page {
             Slider { id: p1amazons
                 width: parent.width
                 label: i18n.tr("Player 1 Amazons")
+                stepSize: 1
                 minimumValue: 3
                 maximumValue: 7
                 value: 4
@@ -62,6 +63,7 @@ Page {
             Slider { id: p2amazons
                 width: parent.width
                 label: i18n.tr("Player 2 Amazons")
+                stepSize: 1
                 minimumValue: 3
                 maximumValue: 7
                 value: 4
@@ -72,6 +74,7 @@ Page {
             Slider { id: bwlbl
                 width: parent.width
                 label: i18n.tr("Board width")
+                stepSize: 1
                 minimumValue: 7
                 maximumValue: 17
                 value: 10
@@ -82,6 +85,7 @@ Page {
             Slider { id: bhlbl
                 width: parent.width
                 label: i18n.tr("Board height")
+                stepSize: 1
                 minimumValue: 7
                 maximumValue: 17
                 value: 10
