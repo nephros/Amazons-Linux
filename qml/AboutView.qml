@@ -18,7 +18,7 @@ import "compat"
 
 Page {
 	id: aboutPage
-	header: DefaultHeader {}
+	PageHeader { id: header }
 
     property int margin: Theme.paddingSmall
 

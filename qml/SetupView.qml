@@ -18,8 +18,8 @@ import "compat"
 
 Page {
 	id: setupPage
-	header: DefaultHeader {}
-	
+	PageHeader { id: header }
+
 	property bool areSFXEnabled: true
 
     property int margin: Theme.paddingSmall

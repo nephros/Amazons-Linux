@@ -171,7 +171,7 @@ Page {
 		}
 		clip: true
 
-        DefaultHeader { id: header }
+        PageHeader { id: header }
 
         DefaultPulley{}
 
