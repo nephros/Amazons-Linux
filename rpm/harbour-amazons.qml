@@ -24,21 +24,12 @@ ApplicationWindow {
 
     Component { id: coverPage
         CoverBackground {
-            Image {
-                source: "./cover-background.png"
-                anchors {
-                    horizontalCenter: parent.horizontalCenter
-                    bottom: parent.bottom
-                }
-                //height: parent.height
-                width: parent.width
-                sourceSize.width: width
-                fillMode: Image.PreserveAspectFit
-                opacity: 0.2
-            }
             CoverPlaceholder {
                 text: "Game of the Amazons"
                 textColor: Theme.highlightColor
+                icon.source: "./cover-background.png"
+                icon.height: Theme.iconSizeLarge
+                icon.width: Theme.iconSizeLarge
             }
         }
     }

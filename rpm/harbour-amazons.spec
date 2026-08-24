@@ -97,7 +97,7 @@ mv %{buildroot}%{_datadir}/%{name}/amazons.desktop %{buildroot}%{_datadir}/appli
  desktop-file-edit  \
  --set-key=Exec \
  --set-value="sailfish-qml %{name}" \
- --set-name="Game Of The Amazons" \
+ --set-name="Amazons" \
  --set-icon=%{name} \
  --set-key=X-Nemo-Application-Type \
  --set-value=silica-qt5 \
