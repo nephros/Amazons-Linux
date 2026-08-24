@@ -4,3 +4,8 @@ build
 *.click
 qml/compat
 qml/harbour-amazons.qml
+CMakeCache.txt
+CMakeFiles
+cmake_install.cmake
+Makefile
+amazons.desktop
