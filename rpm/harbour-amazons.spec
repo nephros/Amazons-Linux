@@ -6,6 +6,7 @@ Name:       harbour-amazons
 %define orgname arc676
 %define appname GameOfTheAmazons
 %define keepstatic 1
+%define __provides_exclude_from ^%{_datadir}/%{name}/Amazons/.*$
 
 Summary:    Game of the Amazons
 Version:    1.3.3
@@ -17,7 +18,8 @@ Source0:    %{name}-%{version}.tar.bz2
 Source1:    lomiri-compat-CMakeLists.txt
 Source2:    %{name}.qml
 
-# we need this if we rely on sailfishapp features in the .pro file (like installing qml)
+Requires: libsailfishapp-launcher
+
 BuildRequires:  pkgconfig(sailfishapp)
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Qml)
@@ -85,7 +87,7 @@ sed -i 's/^add_subdirectory(po)$/add_subdirectory(lomiri-compat)/' CMakeLists.tx
 %cmake_build -j 1
 
 %install
-%cmake_install
+%cmake_install --strip
 
 rm -f %{buildroot}%{_datadir}/%{name}/qml/%{name}.qml
 install -Dpm644 %{S:2} %{buildroot}%{_datadir}/%{name}/qml/%{name}.qml
