@@ -71,7 +71,7 @@ Page {
                 handleVisible: true
             }
 
-            Slider { id: bwlbl
+            Slider { id: boardWidth
                 width: parent.width
                 label: i18n.tr("Board width")
                 stepSize: 1
@@ -82,7 +82,7 @@ Page {
                 handleVisible: true
             }
 
-            Slider { id: bhlbl
+            Slider { id: boardHeight
                 width: parent.width
                 label: i18n.tr("Board height")
                 stepSize: 1
