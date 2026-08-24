@@ -63,10 +63,10 @@ Page {
 		var dlg = pageStack.push(confirmDialog , { "custom": custom } )
 		dlg.accepted.connect(function() {
 				if (dlg.custom) {
-					var wp = setup.getAmazons(1)
-					var bp = setup.getAmazons(2)
-					var bh = setup.getBoardSize(1)
-					var bw = setup.getBoardSize(2)
+					var wp = setupView.getAmazons(1)
+					var bp = setupView.getAmazons(2)
+					var bh = setupView.getBoardSize(1)
+					var bw = setupView.getBoardSize(2)
 					gameViewPage.isSettingUp = true
 					gameViewPage.pickedPositions = 0
 					gameViewPage.initialPositions = []
