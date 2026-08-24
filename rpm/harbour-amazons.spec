@@ -79,7 +79,7 @@ sed -i 's/^add_subdirectory(po)$/add_subdirectory(lomiri-compat)/' CMakeLists.tx
        -DVERSION="%{version}" \
        -DRELEASE="%{release}" \
        -DCMAKE_INSTALL_PREFIX=%{_prefix} \
-       -DQT_IMPORTS_DIR=%{_datadir}/%{name}/qml/ \
+       -DQT_IMPORTS_DIR=%{_datadir}/%{name} \
        -DDATA_DIR=%{_datadir}/%{name} \
         %nil
 %cmake_build -j 1
@@ -136,4 +136,5 @@ rm -rf %{buildroot}%{_mandir}
 #%%dir %{_datadir}/%{name}/translations
 #%%{_datadir}/%{name}/translations/*.qm
 %{_datadir}/%{name}/qml/
+%{_datadir}/%{name}/Amazons/
 
