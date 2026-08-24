@@ -7,8 +7,6 @@ Name:       harbour-amazons
 %define appname GameOfTheAmazons
 %define keepstatic 1
 
-%undefine __cmake_in_source_build
-
 Summary:    Game of the Amazons
 Version:    1.3.3
 Release:    0
@@ -16,6 +14,7 @@ Group:      Applications
 License:    GPLv3 and CC-BY-NC-SA-4.0
 URL:        https://github.com/Arc676/Amazons-Linux
 Source0:    %{name}-%{version}.tar.bz2
+Source1:    rpm/lomiri-compat-CMakeLists.txt
 
 # we need this if we rely on sailfishapp features in the .pro file (like installing qml)
 BuildRequires:  pkgconfig(sailfishapp)
@@ -63,12 +62,14 @@ Links:
 
 %prep
 %autosetup -p1 -n %{name}-%{version}
-#sed -i 's@${CMAKE_SOURCE_DIR}/plugins/Amazons/backend/libamazons.a@amazons@' plugins/Amazons/CMakeLists.txt ||:
 sed -i '/^set(QT_IMPORTS_DIR.*/d' plugins/Amazons/CMakeLists.txt ||:
 sed -i '/^set(QT_IMPORTS_DIR.*/d' CMakeLists.txt ||:
 sed -i '/^set(CMAKE_INSTALL_PREFIX.*/d' CMakeLists.txt ||:
 sed -i '/^set(DATA_DIR.*/d' CMakeLists.txt ||:
-sed -i '/^add_subdirectory(po)/d' CMakeLists.txt ||:
+#sed -i '/^add_subdirectory(po)/d' CMakeLists.txt ||:
+
+cp %{S:1} lomiri-compat/CMakeLists.txt
+sed -i 's/^add_subdirectory(po)$/add_subdirectory(lomiri-compat)/' CMakeLists.txt ||:
 
 %build
 %cmake -Wno-dev \
