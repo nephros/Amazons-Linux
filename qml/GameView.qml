@@ -66,7 +66,7 @@ Page {
         //source: "sfx/spear.wav"
     }
 	function playSound(sfx) {
-		if (areSFXEnabled) {
+		if (setupView.areSFXEnabled) {
 			if (sfx == "click")
 				clickfx.play()
 			else if (sfx == "white")
@@ -201,9 +201,9 @@ Page {
 			onPaint: {
 				var ctx = gameCanvas.getContext('2d')
 				// Draw grid of squares
-				ctx.fillStyle = "#FFFFFF"
+				ctx.fillStyle = setupView.colorScheme.whiteSquare
 				ctx.fillRect(0, 0, gameCanvas.width, gameCanvas.height)
-				ctx.fillStyle = "#7F7F7F"
+				ctx.fillStyle = setupView.colorScheme.blackSquare
 				for (var x = 0; x < Amazons.getBoardWidth(); x++) {
 					for (var y = 0; y < Amazons.getBoardHeight(); y++) {
 						if ((x + y) % 2 == 0) {
@@ -245,12 +245,12 @@ Page {
 					// If in the middle of a move, highlight chosen squares
 					switch (gameViewPage.clickedSquare) {
 						case 2:
-							ctx.fillStyle = "#FF0000"
+							ctx.fillStyle = setupView.colorScheme.redSquare
 							var xd = Amazons.getSquare(Amazons.DESTINATION, 1)
 							var yd = Amazons.getSquare(Amazons.DESTINATION, 2)
 							ctx.fillRect(xd * squareSize, yd * squareSize, squareSize, squareSize)
 						case 1:
-							ctx.fillStyle = Qt.rgba(0, 255, 0, 0.5)
+							ctx.fillStyle = setupView.colorScheme.greenSquare
 							var xs = Amazons.getSquare(Amazons.SOURCE, 1)
 							var ys = Amazons.getSquare(Amazons.SOURCE, 2)
 							ctx.fillRect(xs * squareSize, ys * squareSize, squareSize, squareSize)

@@ -50,8 +50,6 @@ ApplicationWindow {
         path:  "game"
     }
 
-    property bool areSFXEnabled: false
-
     Component { id: coverPage
         CoverBackground {
             CoverPlaceholder {

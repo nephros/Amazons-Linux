@@ -19,7 +19,7 @@ import "compat"
 Dialog {
     id: setupPage
 
-    //property bool areSFXEnabled: false
+    property bool areSFXEnabled: false
 
     property int margin: Theme.paddingSmall
 
@@ -29,6 +29,7 @@ Dialog {
         gameConfig.setValue("boardwidth", boardWidth.sliderValue)
         gameConfig.setValue("boardheight", boardHeight.sliderValue)
         appConfig.setValue("sfx", enableSFX.checked)
+        colorScheme = new Object(colorSchemes.get(colorSchemeIdx))
     }
 
     function parseWithDefault(text, def) {
@@ -46,7 +47,54 @@ Dialog {
     function getBoardSize(axis) {
         return parseWithDefault(axis === 1 ? boardHeight.sliderValue : boardWidth.sliderValue, 10)
     }
-
+    property QtObject colorScheme: {}
+    property int colorSchemeIdx: 0
+    ListModel { id: colorSchemes
+        ListElement {
+            displayName: ""
+            whiteSquare: "#FFFFFF"
+            blackSquare: "#7F7F7F"
+            greenSquare: ""
+            redSquare:   ""
+        }
+        ListElement {
+            displayName: ""
+            whiteSquare: "#edead9"
+            blackSquare: "#2f0d02"
+            greenSquare: ""
+            redSquare:   ""
+        }
+        ListElement {
+            displayName: ""
+            blackSquare: "#b96829"
+            whiteSquare: "#171717"
+            greenSquare: ""
+            redSquare:   ""
+        }
+        ListElement {
+            displayName: ""
+            whiteSquare: "#d1843a"
+            blackSquare: "#191106"
+            greenSquare: ""
+            redSquare:   ""
+        }
+        // work around ListElement: cannot use script for property value
+        Component.onCompleted: {
+            setProperty(0, "displayName", i18n.tr("Default"))
+            setProperty(0, "greenSquare", Theme.rgba(Theme.highlightFromColor(Qt.rgba(0, 255, 0, 0.5), Theme.colorScheme), 0.5).toString())
+            setProperty(0, "redSquare",   Theme.rgba(Theme.highlightFromColor("#FF0000", Theme.colorScheme), 0.5).toString())
+            setProperty(1, "displayName", i18n.tr("White Ground"))
+            setProperty(1, "greenSquare", Theme.rgba("#debf6f", 0.5).toString())
+            setProperty(1, "redSquare",   Theme.rgba("#ab1e21", 0.5).toString())
+            setProperty(2, "displayName", i18n.tr("Black Figure"))
+            setProperty(2, "greenSquare", Theme.rgba("#b69560", 0.5).toString())
+            setProperty(2, "redSquare",   Theme.rgba("#5b362c", 0.5).toString())
+            setProperty(3, "displayName", i18n.tr("Red Figure"))
+            setProperty(3, "greenSquare", Theme.rgba("#f6d6ad", 0.5).toString())
+            setProperty(3, "redSquare",   Theme.rgba("#d41d3e", 0.5).toString())
+            colorScheme = new Object(colorSchemes.get(colorSchemeIdx))
+        }
+    }
 
     SilicaFlickable {
         anchors.fill: parent
@@ -105,8 +153,33 @@ Dialog {
                 id: enableSFX
                 width: parent.width
                 text: i18n.tr("Enable sound effects")
-                checked: app.areSFXEnabled
-                onCheckedChanged: app.areSFXEnabled = checked
+                checked: areSFXEnabled
+                onCheckedChanged: areSFXEnabled = checked
+            }
+
+            SectionHeader { text: i18n.tr("Color Scheme") }
+
+            Grid { id: colorGrid
+                anchors.horizontalCenter: parent.horizontalCenter
+                spacing: Theme.paddingLarge
+                rows: 2; columns: 2
+                Repeater { model: colorSchemes
+                delegate: GridItem {
+                        onClicked: { colorSchemeIdx = index }
+                        width: units.gu(8); height:  units.gu(4) + label.height
+                        Row { id: row
+                            Rectangle { width: units.gu(4); height: width; color: whiteSquare }
+                            Rectangle { width: units.gu(4); height: width; color: blackSquare }
+                        }
+                        Label { id: label
+                            anchors.top: row.bottom
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            text: model.displayName
+                            font.pixelSize: Theme.fontSizeTiny
+                            color: colorSchemeIdx == index ? Theme.primaryColor : Theme.secondaryHighlightColor
+                        }
+                    }
+                }
             }
         }
     }
