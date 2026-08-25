@@ -51,9 +51,23 @@ Page {
 		gameCanvas.requestPaint()
 	}
 
+    SoundEffect { id: arrowfx
+        source: "sfx/arrow.wav"
+    }
+    SoundEffect { id: spearfx
+        source: "sfx/spear.wav"
+    }
+    SoundEffect { id: gameoverfx
+        //source: "sfx/spear.wav"
+    }
 	function playSound(sfx) {
-		if (setup.areSFXEnabled) {
-			sfx.play()
+		if (areSFXEnabled) {
+			if (sfx == "white")
+				arrowfx.play()
+			else if (sfx == "black")
+				spearfx.play()
+			else if (sfx == "gameover")
+				gameoverfx.play()
 		}
 	}
 
@@ -336,8 +350,10 @@ Page {
 								} else {
 									if (Amazons.whiteToPlay()) {
 										stateLabel.text = i18n.tr("Bows to move")
+										gameViewPage.playSound("black")
 									} else {
 										stateLabel.text = i18n.tr("Spears to move")
+										gameViewPage.playSound("white")
 									}
 								}
 								break

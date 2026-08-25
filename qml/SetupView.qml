@@ -105,7 +105,8 @@ Dialog {
                 id: enableSFX
                 width: parent.width
                 text: i18n.tr("Enable sound effects")
-                checked: areSFXEnabled
+                checked: app.areSFXEnabled
+                onCheckedChanged: app.areSFXEnabled = checked
             }
         }
     }
