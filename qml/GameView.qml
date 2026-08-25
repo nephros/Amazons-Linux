@@ -218,13 +218,13 @@ Page {
 					for (var i = 0; i < gameViewPage.pickedPositions * 2; i += 2) {
 						var x = gameViewPage.initialPositions[i]
 						var y = gameViewPage.initialPositions[i + 1]
-						if (i < gameViewPage.p1count * 2) {
-							ctx.fillStyle = "#AAAAAA"
-						} else {
-							ctx.fillStyle = "#000000"
-						}
+						ctx.fillStyle = Qt.rgba(0, 128, 128, 0.5)
 						ctx.fillRect(x * squareSize, y * squareSize, squareSize, squareSize)
-					}
+						if (i < gameViewPage.p1count * 2) {
+							ctx.drawImage("sprites/P1.png", x * squareSize, y * squareSize, squareSize, squareSize)
+						} else {
+							ctx.drawImage("sprites/P2.png", x * squareSize, y * squareSize, squareSize, squareSize)
+						}					}
 				} else {
 					// If playing, draw player positions and arrows
 					for (var x = 0; x < Amazons.getBoardWidth(); x++) {
