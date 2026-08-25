@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="fr">
+<TS version="2.1" language="fr" sourcelanguage="en">
     <extra-po-header-language>fr</extra-po-header-language>
     <extra-po-header-last_translator>Anne017 &lt;anneonyme017@openmailbox.org&gt;</extra-po-header-last_translator>
     <extra-po-header-po_revision_date>2019-06-17 22:38+0000</extra-po-header-po_revision_date>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="es">
+<TS version="2.1" language="es" sourcelanguage="en">
     <extra-po-header-language>es</extra-po-header-language>
     <extra-po-header-language_team>UBports Spanish Team</extra-po-header-language_team>
     <extra-po-header-last_translator>advocatux &lt;advocatux@airpost.net&gt;</extra-po-header-last_translator>

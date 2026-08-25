@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="nl">
+<TS version="2.1" language="nl" sourcelanguage="en">
     <extra-po-header-language>nl</extra-po-header-language>
     <extra-po-header-language_team></extra-po-header-language_team>
     <extra-po-header-last_translator>Heimen Stoffels &lt;vistausss@fastmail.com&gt;</extra-po-header-last_translator>
