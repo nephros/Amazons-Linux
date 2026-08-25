@@ -76,6 +76,13 @@ Page {
                 color: Theme.secondaryHighlightColor
 			}
 
+			WrappingLabel {
+                visible: /^es/.test(Qt.locale())
+				text: "<i>El Juego de las Amazonas</i> es una marca registrada de Ediciones de Mente."
+                color: Theme.secondaryHighlightColor
+                font.pixelSize: Theme.fontSizeTiny
+			}
+
 
 		}
 	}
