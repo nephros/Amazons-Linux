@@ -158,4 +158,5 @@ echo '=========== NOT checking for Harbour compatability.'
 %{_datadir}/%{name}/translations/*.qm
 %{_datadir}/%{name}/qml/
 %{_datadir}/%{name}/Amazons/
+%exclude %{_datadir}/%{name}/qml/Main.qml
 
