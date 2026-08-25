@@ -30,6 +30,7 @@ Dialog {
         gameConfig.setValue("boardheight", boardHeight.sliderValue)
         appConfig.setValue("sfx", enableSFX.checked)
         colorScheme = new Object(colorSchemes.get(colorSchemeIdx))
+        appConfig.setValue("colorScheme", colorSchemeIdx)
     }
 
     function parseWithDefault(text, def) {
@@ -48,7 +49,9 @@ Dialog {
         return parseWithDefault(axis === 1 ? boardHeight.sliderValue : boardWidth.sliderValue, 10)
     }
     property QtObject colorScheme: {}
-    property int colorSchemeIdx: 0
+    property int colorSchemeIdx: appConfig.value("colorScheme", 0) < colorSchemes.count
+                                 ? Math.floor(appConfig.value("colorScheme", 0))
+                                 : 0
     ListModel { id: colorSchemes
         ListElement {
             displayName: ""
