@@ -10,7 +10,7 @@ set(TS_MASTER harbour-${PROJECT_NAME}.ts)
 
 add_custom_target(${TS_MASTER} ALL
         COMMENT "Generating Qt Liguist translation template"
-        COMMAND cat ${POT_FILE} | tr "CHARSET" "UTF-8" | ${Qt5_LCONVERT_EXECUTABLE} 
+        COMMAND cat ${POT_FILE} | tr "CHARSET" "UTF-8" | ${Qt5_LCONVERT_EXECUTABLE}
                 -if pot -i -
                 -of ts -o ${CMAKE_CURRENT_SOURCE_DIR}/${TS_MASTER}
     )
@@ -19,23 +19,17 @@ add_custom_target(${TS_MASTER} ALL
 foreach(PO_FILE ${PO_FILES})
     get_filename_component(LANG ${PO_FILE} NAME_WE)
     set(TS_FILE harbour-${PROJECT_NAME}-${LANG}.ts)
+    set(QM_FILE harbour-${PROJECT_NAME}-${LANG}.qm)
     add_custom_target(conv_${LANG} ALL
         COMMENT "Generating TS file from ${PO_FILE}"
-        COMMAND ${Qt5_LCONVERT_EXECUTABLE} 
+        COMMAND ${Qt5_LCONVERT_EXECUTABLE}
                 -verbose
                 -source-language en
                 -target-language ${LANG}
-                -i ${PO_FILE} 
-                -i ${TS_FILE} 
-                -of ts 
-                -o ${CMAKE_CURRENT_BINARY_DIR}/${TS_FILE}
-        COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/${TS_FILE} ${CMAKE_CURRENT_SOURCE_DIR}/${TS_FILE}
+                -if po -i ${PO_FILE}
+                -if ts -i ${TS_FILE}
+                -of qm
+                -o ${CMAKE_CURRENT_BINARY_DIR}/${QM_FILE}
     )
-
-    set(QM_FILE harbour-${PROJECT_NAME}-${LANG}.qm)
-    add_custom_target(qm_${LANG} ALL
-        COMMENT "Compiling ${TS_FILE}"
-        COMMAND ${Qt5_LRELEASE_EXECUTABLE} ${TS_FILE} -qm ${QM_FILE}
-    )
-    install(FILES ${QM_FILE} DESTINATION ${DATA_DIR}/translations/)
+    install(FILES  ${CMAKE_CURRENT_BINARY_DIR}/${QM_FILE} DESTINATION ${DATA_DIR}/translations/)
 endforeach(PO_FILE)
