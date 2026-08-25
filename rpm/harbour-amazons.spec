@@ -8,6 +8,16 @@ Name:       harbour-amazons
 %define keepstatic 1
 %define __provides_exclude_from ^%{_datadir}/%{name}/Amazons/.*$
 
+%if 0%{?sailfishos_version} < 40600
+%if 0%{?sailfishos_version} <= 40000
+%define cmake_build %__cmake --build "."
+%define cmake_install %make_install
+%else
+%define cmake_build %__cmake --build "." -j8 --verbose
+%define cmake_install DESTDIR=%buildroot %__cmake --install .
+%endif
+%endif
+
 Summary:    Game of the Amazons
 Version:    1.3.3
 Release:    0
