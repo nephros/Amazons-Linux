@@ -129,33 +129,6 @@ Page {
 		}
 	}
 
-    /*
-	Component {
-		id: confirmRestartNotif
-
-		ConfirmDialog {
-			onRestart: {
-				if (custom) {
-					var wp = setup.getAmazons(1)
-					var bp = setup.getAmazons(2)
-					var bh = setup.getBoardSize(1)
-					var bw = setup.getBoardSize(2)
-					gameViewPage.isSettingUp = true
-					gameViewPage.pickedPositions = 0
-					gameViewPage.initialPositions = []
-					gameViewPage.clickedSquare = 0
-					Amazons.setGameProperties(wp, bp, bw, bh)
-					gameViewPage.p1count = wp
-					gameViewPage.p2count = bp
-					stateLabel.text = i18n.tr("Tap initial starting positions for first player")
-				} else {
-					newStandardGame()
-				}
-			}
-		}
-	}
-    */
-
 	SilicaFlickable {
         anchors.fill: parent
 		clip: true
