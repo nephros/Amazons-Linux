@@ -19,7 +19,7 @@ import "compat"
 Dialog {
     id: setupPage
 
-    property bool areSFXEnabled: true
+    //property bool areSFXEnabled: false
 
     property int margin: Theme.paddingSmall
 
@@ -105,8 +105,7 @@ Dialog {
                 id: enableSFX
                 width: parent.width
                 text: i18n.tr("Enable sound effects")
-                checked: appConfig.value("sfx", false)
-                onClicked: areSFXEnabled = checked
+                checked: areSFXEnabled
             }
         }
     }
