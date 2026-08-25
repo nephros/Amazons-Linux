@@ -23,6 +23,8 @@ Label {
     linkColor: Qt.colorEqual(color, Theme.secondaryHighlightColor)
             ? Theme.primaryColor : Theme.secondaryHighlightColor
     font.pixelSize: Theme.fontSizeSmall
-	wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-	onLinkActivated: Qt.openUrlExternally(link)
+    wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+    onLinkActivated: Qt.openUrlExternally(link)
 }
+
+// vim: set ft=4 sw=4 st=4 expandtab ft=javascript syntax=qml

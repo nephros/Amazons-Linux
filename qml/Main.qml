@@ -15,39 +15,41 @@
 import QtQuick 2.4
 
 MainView {
-	id: root
-	objectName: 'mainView'
-	applicationName: 'amazons.arc676'
-	automaticOrientation: true
+    id: root
+    objectName: 'mainView'
+    applicationName: 'amazons.arc676'
+    automaticOrientation: true
 
-	width: units.gu(45)
-	height: units.gu(75)
-	property real margin: units.gu(2)
+    width: units.gu(45)
+    height: units.gu(75)
+    property real margin: units.gu(2)
 
-	PageStack {
-		id: pageViewer
-		anchors.fill: parent
+    PageStack {
+        id: pageViewer
+        anchors.fill: parent
 
-		property SetupView setupView: SetupView {
-			visible: false
-		}
+        property SetupView setupView: SetupView {
+            visible: false
+        }
 
-		property GameView gameView: GameView {
-			setup: pageViewer.setupView
-			visible: false
-		}
+        property GameView gameView: GameView {
+            setup: pageViewer.setupView
+            visible: false
+        }
 
-		property AboutView aboutView: AboutView {
-			visible: false
-		}
+        property AboutView aboutView: AboutView {
+            visible: false
+        }
 
-		property RulesView rulesView: RulesView {
-			visible: false
-		}
+        property RulesView rulesView: RulesView {
+            visible: false
+        }
 
-		Component.onCompleted: {
-			pageViewer.clear()
-			pageViewer.push(gameView)
-		}
-	}
+        Component.onCompleted: {
+            pageViewer.clear()
+            pageViewer.push(gameView)
+        }
+    }
 }
+
+// vim: set ft=4 sw=4 st=4 expandtab ft=javascript syntax=qml

@@ -187,3 +187,5 @@ Dialog {
         }
     }
 }
+
+// vim: set ft=4 sw=4 st=4 expandtab ft=javascript syntax=qml

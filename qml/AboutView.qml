@@ -17,15 +17,15 @@ import Sailfish.Silica 1.0
 import "compat"
 
 Page {
-	id: aboutPage
+    id: aboutPage
 
-	SilicaFlickable {
-		id: scroll
+    SilicaFlickable {
+        id: scroll
 
         anchors.fill: parent
         contentHeight: content.height
 
-	    PageHeader { id: header; title: i18n.tr("Amazons") }
+        PageHeader { id: header; title: i18n.tr("Amazons") }
 
         PullDownMenu {
             MenuItem {
@@ -34,7 +34,7 @@ Page {
             }
         }
 
-		Column { id: content
+        Column { id: content
             anchors {
                 top: header.bottom
                 left: parent.left
@@ -42,48 +42,50 @@ Page {
                 leftMargin: Theme.horizontalPageMargin
                 rightMargin: Theme.horizontalPageMargin
             }
-			spacing: Theme.paddingLarge
+            spacing: Theme.paddingLarge
 
-			WrappingLabel {
-				text: "Game of the Amazons - " + i18n.tr("written by Arc676/Alessandro Vinciguerra. Project available under") + " GPLv3. Copyright 2019-20 Arc676/Alessandro Vinciguerra <alesvinciguerra@gmail.com>"
+            WrappingLabel {
+                text: "Game of the Amazons - " + i18n.tr("written by Arc676/Alessandro Vinciguerra. Project available under") + " GPLv3. Copyright 2019-20 Arc676/Alessandro Vinciguerra <alesvinciguerra@gmail.com>"
                 color: Theme.secondaryHighlightColor
-			}
+            }
 
-			WrappingLabel {
-				text: i18n.tr("This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation (version 3).")
-			}
+            WrappingLabel {
+                text: i18n.tr("This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation (version 3).")
+            }
 
-			WrappingLabel {
-				text: i18n.tr("This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.")
-			}
+            WrappingLabel {
+                text: i18n.tr("This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.")
+            }
 
-			WrappingLabel {
-				text: i18n.tr("For the full license text, visit the <a href='https://github.com/Arc676/Amazons-Linux'>repository</a> or the <a href='http://www.gnu.org/licenses/'>GNU licenses page</a>")
+            WrappingLabel {
+                text: i18n.tr("For the full license text, visit the <a href='https://github.com/Arc676/Amazons-Linux'>repository</a> or the <a href='http://www.gnu.org/licenses/'>GNU licenses page</a>")
                 color: Theme.secondaryHighlightColor
-			}
+            }
 
-			WrappingLabel {
-				text: i18n.tr("%1 assets").arg("<a href='https://creativecommons.org/licenses/by-nc-sa/4.0/'>CC BY-NC-SA 4.0</a>")
-			}
+            WrappingLabel {
+                text: i18n.tr("%1 assets").arg("<a href='https://creativecommons.org/licenses/by-nc-sa/4.0/'>CC BY-NC-SA 4.0</a>")
+            }
 
-			WrappingLabel {
-				text: i18n.tr("All assets by Arc676/Alessandro Vinciguerra adapted from CC0 assets by %1").arg("<a href='https://opengameart.org/content/rpg-itemterraincharacter-sprites-ice-insignia'>rcorre</a>")
+            WrappingLabel {
+                text: i18n.tr("All assets by Arc676/Alessandro Vinciguerra adapted from CC0 assets by %1").arg("<a href='https://opengameart.org/content/rpg-itemterraincharacter-sprites-ice-insignia'>rcorre</a>")
                 color: Theme.secondaryHighlightColor
-			}
+            }
 
-			WrappingLabel {
-				text: i18n.tr("ported to Sailfish OS by nephros")
+            WrappingLabel {
+                text: i18n.tr("ported to Sailfish OS by nephros")
                 color: Theme.secondaryHighlightColor
-			}
+            }
 
-			WrappingLabel {
+            WrappingLabel {
                 visible: /^es/.test(Qt.locale())
-				text: "<i>El Juego de las Amazonas</i> es una marca registrada de Ediciones de Mente."
+                text: "<i>El Juego de las Amazonas</i> es una marca registrada de Ediciones de Mente."
                 color: Theme.secondaryHighlightColor
                 font.pixelSize: Theme.fontSizeTiny
-			}
+            }
 
 
-		}
-	}
+        }
+    }
 }
+
+// vim: set ft=4 sw=4 st=4 expandtab ft=javascript syntax=qml
