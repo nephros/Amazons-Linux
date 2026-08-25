@@ -51,6 +51,9 @@ Page {
 		gameCanvas.requestPaint()
 	}
 
+    SoundEffect { id: clickfx
+        source: "sfx/click.wav"
+    }
     SoundEffect { id: arrowfx
         source: "sfx/arrow.wav"
     }
@@ -62,7 +65,9 @@ Page {
     }
 	function playSound(sfx) {
 		if (areSFXEnabled) {
-			if (sfx == "white")
+			if (sfx == "click")
+				clickfx.play()
+			else if (sfx == "white")
 				arrowfx.play()
 			else if (sfx == "black")
 				spearfx.play()
@@ -313,11 +318,13 @@ Page {
 								if (!Amazons.setSrc(x, y)) {
 									return
 								}
+								gameViewPage.playSound("click")
 								break
 							case 1:
 								if (!Amazons.setDst(x, y)) {
 									return
 								}
+								gameViewPage.playSound("click")
 								break
 							case 2:
 							default:
