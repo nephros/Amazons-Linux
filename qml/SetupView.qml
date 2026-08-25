@@ -16,12 +16,20 @@ import QtQuick 2.4
 import Sailfish.Silica 1.0
 import "compat"
 
-Page {
+Dialog {
     id: setupPage
 
     property bool areSFXEnabled: true
 
     property int margin: Theme.paddingSmall
+
+    onAccepted: {
+        gameConfig.setValue("p1amazons", p1amazons.sliderValue)
+        gameConfig.setValue("p2amazons", p2amazons.sliderValue)
+        gameConfig.setValue("boardwidth", boardWidth.sliderValue)
+        gameConfig.setValue("boardheight", boardHeight.sliderValue)
+        appConfig.setValue("sfx", enableSFX.checked)
+    }
 
     function parseWithDefault(text, def) {
         var parsed = parseInt(text)
@@ -47,7 +55,7 @@ Page {
             width: parent.width
             spacing: Theme.paddingLarge
 
-            PageHeader { id: header; title: i18n.tr("Game Settings") }
+            DialogHeader { id: header; }//title: i18n.tr("Game Settings") }
 
             Slider { id: p1amazons
                 width: parent.width
@@ -55,7 +63,7 @@ Page {
                 stepSize: 1
                 minimumValue: 3
                 maximumValue: 7
-                value: 4
+                value: gameConfig.value("p1amazons", 4)
                 valueText: sliderValue
                 handleVisible: true
             }
@@ -66,7 +74,7 @@ Page {
                 stepSize: 1
                 minimumValue: 3
                 maximumValue: 7
-                value: 4
+                value: gameConfig.value("p2amazons", 4)
                 valueText: sliderValue
                 handleVisible: true
             }
@@ -76,8 +84,8 @@ Page {
                 label: i18n.tr("Board width")
                 stepSize: 1
                 minimumValue: 7
-                maximumValue: 17
-                value: 10
+                maximumValue: 19
+                value: gameConfig.value("boardwidth", 10)
                 valueText: sliderValue
                 handleVisible: true
             }
@@ -87,8 +95,8 @@ Page {
                 label: i18n.tr("Board height")
                 stepSize: 1
                 minimumValue: 7
-                maximumValue: 17
-                value: 10
+                maximumValue: 19
+                value: gameConfig.value("boardheight", 10)
                 valueText: sliderValue
                 handleVisible: true
             }
@@ -97,7 +105,7 @@ Page {
                 id: enableSFX
                 width: parent.width
                 text: i18n.tr("Enable sound effects")
-                checked: true
+                checked: appConfig.value("sfx", false)
                 onClicked: areSFXEnabled = checked
             }
         }

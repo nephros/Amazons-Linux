@@ -3,6 +3,7 @@
  */
 import QtQuick 2.6
 import Sailfish.Silica 1.0
+import Nemo.Configuration 1.0
 import "compat"
 
 ApplicationWindow {
@@ -21,6 +22,25 @@ ApplicationWindow {
     property alias i18n: i18n
     UbuUnits { id: units }
     QtObject { id: i18n; function tr(s) { return qsTr(s) } }
+
+    // application settings:
+    property alias appConfig: appConfig
+    property alias gameConfig: gameConfig
+    ConfigurationGroup  {
+        id: settings
+        path: "/org/nephros/" + Qt.application.name
+    }
+    ConfigurationGroup  {
+        id: appConfig
+        scope: settings
+        path:  "app"
+    }
+    ConfigurationGroup  {
+        id: gameConfig
+        scope: settings
+        path:  "game"
+    }
+
 
     Component { id: coverPage
         CoverBackground {
