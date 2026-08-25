@@ -78,7 +78,8 @@ sed -i '/^set(CMAKE_INSTALL_PREFIX.*/d' CMakeLists.txt ||:
 sed -i '/^set(DATA_DIR.*/d' CMakeLists.txt ||:
 
 cp %{S:1} lomiri-compat/CMakeLists.txt
-sed -i 's/^add_subdirectory(po)$/add_subdirectory(lomiri-compat)/' CMakeLists.txt ||:
+# Add a comment after the original so subsequent rpmbuild runs don't do it again:
+sed -i 's/^add_subdirectory(po)$/add_subdirectory(po) # spec file edited this\nadd_subdirectory(translations)\nadd_subdirectory(lomiri-compat)\n/' CMakeLists.txt ||:
 
 %build
 %cmake -Wno-dev \
@@ -86,11 +87,10 @@ sed -i 's/^add_subdirectory(po)$/add_subdirectory(lomiri-compat)/' CMakeLists.tx
        -DRELEASE="%{release}" \
        -DCMAKE_INSTALL_PREFIX=%{_prefix} \
        -DQT_IMPORTS_DIR=%{_datadir}/%{name} \
+       -DCMAKE_INSTALL_LOCALEDIR=%{_prefix} \
        -DDATA_DIR=%{_datadir}/%{name} \
         %nil
-%cmake_build -j 1
-
-lrelease translations/*
+%cmake_build -j 1 --clean-first
 
 %install
 %cmake_install --strip
@@ -99,10 +99,6 @@ rm -f %{buildroot}%{_datadir}/%{name}/qml/%{name}.qml
 install -Dpm644 %{S:2} %{buildroot}%{_datadir}/%{name}/qml/%{name}.qml
 install -d %{buildroot}%{_datadir}/applications/
 mv %{buildroot}%{_datadir}/%{name}/amazons.desktop %{buildroot}%{_datadir}/applications/%{name}.desktop
-
-for qm in translations/*.qm; do
-install -Dpm644 $qm %{buildroot}%{_datadir}/%{name}/$qm
-done
 
 # Edit the main .desktop file for Sailjail
  desktop-file-edit  \
@@ -136,6 +132,7 @@ desktop-file-install --delete-original       \
 
 rm %{buildroot}%{_prefix}/manifest.json
 rm %{buildroot}%{_datadir}/%{name}/*apparmor
+rm -rf %{buildroot}%{_datadir}/locale/
 # do not package documentation:
 rm -rf %{buildroot}%{_docdir}
 rm -rf %{buildroot}%{_mandir}

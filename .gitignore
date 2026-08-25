@@ -10,3 +10,4 @@ cmake_install.cmake
 Makefile
 amazons.desktop
 translations/*qm
+po/??gmo
