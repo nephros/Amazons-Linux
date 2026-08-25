@@ -49,7 +49,7 @@ Dialog {
         return parseWithDefault(axis === 1 ? boardHeight.sliderValue : boardWidth.sliderValue, 10)
     }
     property QtObject colorScheme: {}
-    property int colorSchemeIdx: appConfig.calue("colorScheme", 0)
+    property int colorSchemeIdx: appConfig.value("colorScheme", 0)
     ListModel { id: colorSchemes
         ListElement {
             displayName: ""
