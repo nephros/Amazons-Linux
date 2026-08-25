@@ -5,13 +5,22 @@ import QtQuick 2.6
 import Sailfish.Silica 1.0
 import Nemo.Configuration 1.0
 import "compat"
+import "manifest.js" as AppManifest
 
 ApplicationWindow {
     id: app
 
     allowedOrientations: defaultAllowedOrientations
     Component.onCompleted: {
-        console.info("Game Of The Amazons (%1.%2) v%3 is starting.".arg(Qt.application.organization).arg(Qt.application.name).arg(Qt.application.version))
+        var m = AppManifest.data()
+        console.info("%1 (%2.%3) v%4: %5 by %6"
+            .arg(m.title)
+            .arg(Qt.application.organization)
+            .arg(Qt.application.name)
+            .arg(m.version)
+            .arg(m.description)
+            .arg(m.maintainer)
+        )
     }
 
     cover: coverPage

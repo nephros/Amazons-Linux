@@ -124,13 +124,15 @@ sailfish_svg2png -z 1.0 -f rgba -s 1 1 1 1 1 1 ${size} %{buildroot}%{_datadir}/i
 done
 
 mv %{buildroot}%{_datadir}/%{name}/assets/logo.png %{buildroot}%{_datadir}/%{name}/qml/cover-background.png
+mv %{buildroot}%{_prefix}/manifest.json %{buildroot}%{_datadir}/%{name}/qml/manifest.js
+sed -i 's/^{$/var m = {/' %{buildroot}%{_datadir}/%{name}/qml/manifest.js
+sed -i 's/^}$/};\nfunction data() { return m };/' %{buildroot}%{_datadir}/%{name}/qml/manifest.js
 
 desktop-file-install --delete-original       \
   --dir %{buildroot}%{_datadir}/applications             \
    %{buildroot}%{_datadir}/applications/*.desktop
 
 
-rm %{buildroot}%{_prefix}/manifest.json
 rm %{buildroot}%{_datadir}/%{name}/*apparmor
 rm -rf %{buildroot}%{_datadir}/locale/
 # do not package documentation:
