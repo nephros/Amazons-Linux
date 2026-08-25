@@ -183,6 +183,7 @@ Page {
             MenuItem {
                 text: i18n.tr("Undo Choice")
                 onClicked: gameViewPage.undoPlacement()
+                visible: gameViewPage.isSettingUp
             }
         }
 
