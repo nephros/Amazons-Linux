@@ -9,6 +9,7 @@ foreach(PO_FILE ${PO_FILES})
     set(QM_FILE harbour-${PROJECT_NAME}-${LANG}.qm)
     add_custom_target(conv_${LANG} ALL
         COMMENT "Generating Qt translation file from ${PO_FILE}"
+        INPUT ${PO_FILE} OUTPUT ${QM_FILE}
         COMMAND ${Qt5_LCONVERT_EXECUTABLE}
                 -verbose
                 -source-language en
