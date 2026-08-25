@@ -63,19 +63,6 @@ ApplicationWindow {
             }
         }
     }
-
-    property SetupView setupView: SetupView { }
-
-    /*
-    property GameView gameView: GameView {
-        setup: pageViewer.setupView
-        visible: false
-    }
-    */
-
-    property AboutView aboutView: AboutView { }
-
-    property RulesView rulesView: RulesView { }
 }
 
 // vim: filetype=javascript syntax=qml expandtab tabstop=4 shiftwidth=4

@@ -31,6 +31,8 @@ Page {
 	property int p2count: 0
 	property int clickedSquare: 0
 
+    property SetupView setupView: SetupView { }
+
     QtObject{ id: stateLabel
         property string text: i18n.tr("Bows to move")
     }
@@ -166,7 +168,7 @@ Page {
         PullDownMenu {
             MenuItem {
                 text: i18n.tr("About Amazons")
-                onClicked: pageStack.push(aboutView)
+                onClicked: pageStack.push("AboutView.qml")
             }
             MenuItem {
                 text: i18n.tr("Game Settings")

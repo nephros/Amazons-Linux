@@ -30,7 +30,7 @@ Page {
         PullDownMenu {
             MenuItem {
                 text: i18n.tr("Gameplay Rules")
-                onClicked: pageStack.push(rulesView)
+                onClicked: pageStack.push("RulesView.qml")
             }
         }
 
