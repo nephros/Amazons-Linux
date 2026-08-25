@@ -122,8 +122,9 @@ Page {
 		onBoardSizeChanged: {
 			gameCanvas.width = Amazons.getBoardWidth() * gameCanvas.squareSize
 			gameCanvas.height = Amazons.getBoardHeight() * gameCanvas.squareSize
-//			flick.contentWidth = gameCanvas.width
-//			flick.contentHeight = gameCanvas.height
+			gameflick.contentWidth = gameCanvas.width
+			gameflick.contentHeight = gameCanvas.height
+            gameflick.returnToBounds()
 			gameCanvas.requestPaint()
 		}
 	}
@@ -156,10 +157,7 @@ Page {
     */
 
 	SilicaFlickable {
-		id: flick
         anchors.fill: parent
-		contentHeight: gameCanvas.height
-		contentWidth: gameCanvas.width
 		clip: true
         PageHeader { id: header; title: i18n.tr("Amazons")
                      description: stateLabel.text
@@ -188,13 +186,16 @@ Page {
             }
         }
 
+        Flickable { id: gameflick
+            anchors.top: header.bottom
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.bottom: parent.bottom
+		    contentHeight: gameCanvas.height
+		    contentWidth: gameCanvas.width
 		Canvas {
 			id: gameCanvas
-            anchors.top: header.bottom
-            anchors.topMargin: Theme.itemSizeLagth
-            anchors.horizontalCenter: parent.horizontalCenter
-            //width: parent.width - Theme.horizontalPageMargin
-            //height: width
+            anchors.centerIn: parent
 
 			property real squareSize: units.gu(4)
 
@@ -371,6 +372,7 @@ Page {
 					}
 				}
 			}
+		}
 		}
 	}
 
