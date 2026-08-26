@@ -59,6 +59,7 @@ Page {
     }
     SoundEffect { id: arrowfx
         source: "sfx/arrow.wav"
+        volume: 0.3
     }
     SoundEffect { id: spearfx
         source: "sfx/spear.wav"
