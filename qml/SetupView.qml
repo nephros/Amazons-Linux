@@ -60,6 +60,7 @@ Dialog {
             blackSquare: "#7F7F7F"
             greenSquare: ""
             redSquare:   ""
+            blueSquare:   ""
         }
         ListElement {
             displayName: ""
@@ -67,6 +68,7 @@ Dialog {
             blackSquare: "#2f0d02"
             greenSquare: ""
             redSquare:   ""
+            blueSquare:   ""
         }
         ListElement {
             displayName: ""
@@ -74,6 +76,7 @@ Dialog {
             whiteSquare: "#171717"
             greenSquare: ""
             redSquare:   ""
+            blueSquare:   ""
         }
         ListElement {
             displayName: ""
@@ -81,21 +84,26 @@ Dialog {
             blackSquare: "#191106"
             greenSquare: ""
             redSquare:   ""
+            blueSquare:   ""
         }
         // work around ListElement: cannot use script for property value
         Component.onCompleted: {
             setProperty(0, "displayName", i18n.tr("Default"))
-            setProperty(0, "greenSquare", Theme.rgba(Theme.highlightFromColor(Qt.rgba(0, 255, 0, 0.5), Theme.colorScheme), 0.5).toString())
+            setProperty(0, "greenSquare", Theme.rgba(Theme.highlightFromColor(Qt.rgba(0, 1, 0, 0.5), Theme.colorScheme), 0.5).toString())
             setProperty(0, "redSquare",   Theme.rgba(Theme.highlightFromColor("#FF0000", Theme.colorScheme), 0.5).toString())
+            setProperty(0, "blueSquare", Theme.rgba(Theme.highlightFromColor(Qt.rgba(0, 0, 1,0.5), Theme.colorScheme), 0.5).toString())
             setProperty(1, "displayName", i18n.tr("White Ground"))
             setProperty(1, "greenSquare", Theme.rgba("#debf6f", 0.5).toString())
             setProperty(1, "redSquare",   Theme.rgba("#ab1e21", 0.5).toString())
+            setProperty(1, "blueSquare", Theme.rgba(Theme.highlightFromColor(Qt.rgba(0, 0, 1,0.5), Theme.colorScheme), 0.5).toString())
             setProperty(2, "displayName", i18n.tr("Black Figure"))
             setProperty(2, "greenSquare", Theme.rgba("#b69560", 0.5).toString())
             setProperty(2, "redSquare",   Theme.rgba("#5b362c", 0.5).toString())
+            setProperty(2, "blueSquare", Theme.rgba(Theme.highlightFromColor(Qt.rgba(0, 0, 1,0.5), Theme.colorScheme), 0.5).toString())
             setProperty(3, "displayName", i18n.tr("Red Figure"))
             setProperty(3, "greenSquare", Theme.rgba("#f6d6ad", 0.5).toString())
             setProperty(3, "redSquare",   Theme.rgba("#d41d3e", 0.5).toString())
+            setProperty(3, "blueSquare", Theme.rgba(Theme.highlightFromColor(Qt.rgba(0, 0, 1,0.5), Theme.colorScheme), 0.5).toString())
             colorScheme = new Object(colorSchemes.get(colorSchemeIdx))
         }
     }

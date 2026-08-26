@@ -239,10 +239,12 @@ Page {
                             for (var y = 0; y < Amazons.getBoardHeight(); y++) {
                                 switch (Amazons.getMapState(x, y)) {
                                     case Amazons.QWHITE:
-                                        ctx.fillStyle = Qt.rgba(255, 0, 0, 0.5)
+                                        //ctx.fillStyle = Qt.rgba(255, 0, 0, 0.5)
+                                        ctx.fillStyle = setupView.colorScheme.redSquare
                                         break
                                     case Amazons.QBLACK:
-                                        ctx.fillStyle = Qt.rgba(0, 0, 255, 0.5)
+                                        //ctx.fillStyle = Qt.rgba(0, 0, 255, 0.5)
+                                        ctx.fillStyle = setupView.colorScheme.blueSquare
                                         break
                                     default:
                                         continue
