@@ -50,6 +50,12 @@ Page {
             }
 
             WrappingLabel {
+                text: i18n.tr("Ported to Sailfish OS by nephros")
+                 + "<br />" + i18n.tr("Visit the <a href='https://github.com/nephros/Amazons-Linux.'>repository</a> of this port.")
+                color: Theme.secondaryHighlightColor
+            }
+
+            WrappingLabel {
                 text: i18n.tr("This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation (version 3).")
             }
 
@@ -68,11 +74,6 @@ Page {
 
             WrappingLabel {
                 text: i18n.tr("All assets by Arc676/Alessandro Vinciguerra adapted from CC0 assets by %1").arg("<a href='https://opengameart.org/content/rpg-itemterraincharacter-sprites-ice-insignia'>rcorre</a>")
-                color: Theme.secondaryHighlightColor
-            }
-
-            WrappingLabel {
-                text: i18n.tr("ported to Sailfish OS by nephros")
                 color: Theme.secondaryHighlightColor
             }
 
