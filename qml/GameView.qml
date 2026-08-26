@@ -172,8 +172,7 @@ Page {
             id: gameCanvas
             anchors.centerIn: parent
 
-            property real squareSize: units.gu(4)
-
+            property real squareSize: Math.min(Screen.height, Screen.width) / 10
             onPaint: {
                 var ctx = gameCanvas.getContext('2d')
                 // Draw grid of squares
