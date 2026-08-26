@@ -18,6 +18,7 @@ import "compat"
 
 Page {
     id: aboutPage
+    allowedOrientations: Orientation.All
 
     SilicaFlickable {
         id: scroll

@@ -18,6 +18,7 @@ import "compat"
 
 Dialog {
     id: setupPage
+    allowedOrientations: Orientation.All
 
     property bool areSFXEnabled: false
 

@@ -18,6 +18,7 @@ import "compat"
 
 Page {
     id: rulesPage
+    allowedOrientations: Orientation.All
     PageHeader { id: header
         title: i18n.tr("Gameplay rules")
     }

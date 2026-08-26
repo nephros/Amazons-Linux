@@ -21,6 +21,7 @@ import Amazons 1.0
 
 Page {
     id: gameViewPage
+    allowedOrientations: Orientation.All
 
     property bool isSettingUp: false
     property bool isGameOver: false
