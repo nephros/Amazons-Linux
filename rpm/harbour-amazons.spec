@@ -17,7 +17,6 @@ Group:      Applications
 License:    GPLv3 and CC-BY-NC-SA-4.0
 URL:        https://github.com/Arc676/Amazons-Linux
 Source0:    %{name}-%{version}.tar.bz2
-Source1:    lomiri-compat-CMakeLists.txt
 
 Requires: libsailfishapp-launcher
 
