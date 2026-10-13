@@ -8,6 +8,8 @@ Name:       harbour-amazons
 %define keepstatic 1
 %define __provides_exclude_from ^%{_datadir}/%{name}/Amazons/.*$
 
+%global sfos_files SailfishOS
+
 Summary:    Game of the Amazons
 Version:    1.3.3
 Release:    0
@@ -16,7 +18,6 @@ License:    GPLv3 and CC-BY-NC-SA-4.0
 URL:        https://github.com/Arc676/Amazons-Linux
 Source0:    %{name}-%{version}.tar.bz2
 Source1:    lomiri-compat-CMakeLists.txt
-Source2:    %{name}.qml
 
 Requires: libsailfishapp-launcher
 
@@ -70,16 +71,13 @@ Links:
 
 %prep
 %autosetup -p1 -n %{name}-%{version}
-sed -i '/^set(QT_IMPORTS_DIR.*/d' plugins/Amazons/CMakeLists.txt ||:
+
+# copy our own provided files over
+cp %{sfos_files}/plugins-Amazons-CMakeLists.txt plugins/Amazons/CMakeLists.txt
+cp %{sfos_files}/lomiri-compat-CMakeLists.txt lomiri-compat/CMakeLists.txt
+cp %{sfos_files}/main-CMakeLists.txt CMakeLists.txt
+
 sed -i 's@FLAGS=-std=c11 -D_XOPEN_SOURCE@FLAGS=-std=c11 -fPIC -D_XOPEN_SOURCE@' plugins/Amazons/backend/Makefile
-
-sed -i '/^set(QT_IMPORTS_DIR.*/d' CMakeLists.txt ||:
-sed -i '/^set(CMAKE_INSTALL_PREFIX.*/d' CMakeLists.txt ||:
-sed -i '/^set(DATA_DIR.*/d' CMakeLists.txt ||:
-
-cp %{S:1} lomiri-compat/CMakeLists.txt
-# Add a comment after the original so subsequent rpmbuild runs don't do it again:
-sed -i 's/^add_subdirectory(po)$/add_subdirectory(po) # spec file edited this\nadd_subdirectory(translations)\nadd_subdirectory(lomiri-compat)\n/' CMakeLists.txt ||:
 
 %build
 %cmake -Wno-dev \
@@ -96,7 +94,7 @@ sed -i 's/^add_subdirectory(po)$/add_subdirectory(po) # spec file edited this\na
 %cmake_install --strip
 
 rm -f %{buildroot}%{_datadir}/%{name}/qml/%{name}.qml
-install -Dpm644 %{S:2} %{buildroot}%{_datadir}/%{name}/qml/%{name}.qml
+install -Dpm644 SailfishOS/%{name}.qml %{buildroot}%{_datadir}/%{name}/qml/%{name}.qml
 install -d %{buildroot}%{_datadir}/applications/
 mv %{buildroot}%{_datadir}/%{name}/amazons.desktop %{buildroot}%{_datadir}/applications/%{name}.desktop
 
