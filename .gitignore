@@ -10,4 +10,7 @@ cmake_install.cmake
 Makefile
 amazons.desktop
 translations/*qm
-po/??gmo
+po/??.gmo
+install_manifest.txt
+plugins/Amazons/Amazons_autogen/
+plugins/Amazons/Amazons/libAmazons.so
