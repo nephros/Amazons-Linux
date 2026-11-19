@@ -11,7 +11,7 @@ Name:       harbour-amazons
 %global sfos_files SailfishOS
 
 Summary:    Game of the Amazons
-Version:    1.3.4
+Version:    1.3.5
 Release:    0
 Group:      Applications
 License:    GPLv3 and CC-BY-NC-SA-4.0
