@@ -211,7 +211,8 @@ Page {
                                     ctx.drawImage("sprites/P2.png", x * squareSize, y * squareSize, squareSize, squareSize)
                                     break
                                 case Amazons.QARROW:
-                                    ctx.drawImage("sprites/Occupied.png", x * squareSize, y * squareSize, squareSize, squareSize)
+                                    ctx.drawImage("sprites/FireMulti.png", x * squareSize, y * squareSize, squareSize, squareSize)
+                                    //ctx.drawImage("sprites/Occupied.png", x * squareSize, y * squareSize, squareSize, squareSize)
                                     break
                                 default:
                                     break
@@ -371,7 +372,8 @@ Page {
     Component.onCompleted: {
         gameCanvas.loadImage("sprites/P1.png")
         gameCanvas.loadImage("sprites/P2.png")
-        gameCanvas.loadImage("sprites/Occupied.png")
+        gameCanvas.loadImage("sprites/FireMulti.png")
+        //gameCanvas.loadImage("sprites/Occupied.png")
         newStandardGame()
     }
 }
