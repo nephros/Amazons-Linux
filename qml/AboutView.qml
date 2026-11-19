@@ -74,7 +74,12 @@ Page {
             }
 
             WrappingLabel {
-                text: i18n.tr("All assets by Arc676/Alessandro Vinciguerra adapted from CC0 assets by %1").arg("<a href='https://opengameart.org/content/rpg-itemterraincharacter-sprites-ice-insignia'>rcorre</a>")
+                text: i18n.tr("Original assets by Arc676/Alessandro Vinciguerra adapted from CC0 assets by %1").arg("<a href='https://opengameart.org/content/rpg-itemterraincharacter-sprites-ice-insignia'>rcorre</a>")
+                color: Theme.secondaryHighlightColor
+            }
+
+            WrappingLabel {
+                text: i18n.tr("Modified assets by nephros adapted from the originals and modified with fire by %1").arg("<a href='https://opengameart.org/content/9-frame-fire-animation-16x-32x-64x'>FoshyTakashi</a>")
                 color: Theme.secondaryHighlightColor
             }
 
